@@ -30,6 +30,13 @@
 
 
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background-color: #104f60;">
+	<div class="navbar-nav">
+		<ul class="nav lead">
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('index.php/web/detail'); ?>"><span class="fa fa-arrow-left fa-lg"></span></a>
+			</li>
+		</ul>
+	</div>
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
