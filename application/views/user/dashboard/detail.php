@@ -33,13 +33,13 @@
 	<div class="navbar-nav">
 		<ul class="nav lead">
 			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url('index.php/web/detail'); ?>"><span class="fa fa-arrow-left fa-lg"></span></a>
 			</li>
 		</ul>
 	</div>
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
+		<a class="" href="<?= base_url('index.php/web/detail'); ?>"><span class="fa fa-arrow-left fa-lg nav-link"></span></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
