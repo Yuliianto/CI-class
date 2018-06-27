@@ -52,7 +52,6 @@
   		</li>
   	</ul>
   </div>
-
   <!-- Navbar links -->
   <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
     <ul class="navbar-nav lead">
@@ -71,6 +70,7 @@
 		color: #fff;
 	}
 </style>
+<!-- 
 <header>
 	<div style="background: rgba(232, 240, 254, 0.2); width: 100%;min-height: 350px;" class="position-absolute">
 	</div>
@@ -87,8 +87,10 @@
 			</div>
 		</div>
 	</div>
-</header>
+</header> -->
+<p></p><br><br>
 &nbsp;
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
@@ -119,71 +121,53 @@
 		</div>
 		<div class="col-md">
 			<div class="card">
-				<div class=" border-bottom border-primary" style="background: #fff;">
-					<div class="" style="">
-						<div class="d-flex justify-content-start">
-							<div class="p-2 align-items-stretch" style="background: #4F59FF;color: #fff;">
-								<i class="fa fa-book fa-lg align-middle" style="margin:15px;">&nbsp;</i>
-							</div>
-							<div class="p-2">
-								<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-							</div>
-							<div class="p-2">
-								<span class="">Nama Dosen<br><small class="text-muted">May 18</small></span>
-							</div>
-							<div class="ml-auto p-2 align-self-center">
-								<span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="card-body">
-						<div class="d-flex justify-content-start">
-							<div class="p-2">
-								<a href="#" class="btn btn-light btn-sm">Topik</a>
-							</div>
-							<div class="p-2">
-							</div>
-							<div class="p-2">
-							</div>
-							<div class="ml-auto p-2 align-self-center">
-								<a href="<?= base_url('index.php/web/detail_lagi'); ?>" class="btn btn-light btn-lg">OPEN</a>
-							</div>
-						</div>
-						<div class="container">
-							<div class="row">
-								<div class="col-md">
-									<span class="text-muted">batas waktu : 22 juni 2018, 00:00</span><br>
-									<a href="" class="h2">Kuis Kecerdasan Buatan</a>
-									<p>
-										<pre>
-kerjakan soal kuis yang Anda Unduh.
-tulis jawaban dengan rapi dan jelas.
-kemudian scan jawaban anda (boleh menggunakan aplikasi scanner HP).
-cek file yang Anda kirim, supaya saya bisa membaca tulisan Anda.
-format file : PDF
-nama file : NIM
-
-simpan lembar jawab Anda sebagai bahan UAS.
-
-NB : saya berikan waktu tambahan untuk scan dan kirim..
-
-selamat mengerjakan.</pre>
-									</p>
-									<div class="media border bg-light">
-										<a href="#" class="pull-left">
-											<img src="sdf.jpg" width="80" class="media-object">
-										</a>
-										<div class="media-body container">
-											<p style="margin-top: 10px;">
-											<a download href="<?= base_url('uploads/jst-jurnal.pdf'); ?>" class="media-heading h5">Kuis.pdf</a><br>
-											<span class="text-muted">PDF</span>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<p class="h1"> Kecerdasan Buatan
+				</p>
+				</div>
+			</div>
+			<p></p>
+			<div class="card">
+				<div class="card-body">
+					<p class="h3"> Materi </p>
+					<div class="container" style="margin-top: 0px;">
+	<div class="row justify-content-center">
+		<div class="col">
+			<div class="d-flex justify-content-start border-muted border bg-light">
+				<div class="p-2">
+					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+				</div>
+				<div class="p-2 align-self-center">
+					<span>Nama Dosen</span>
+				</div>
+			</div>
+			<div class="d-flex justify-content-start border-muted border bg-light">
+				<div class="p-2">
+					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+				</div>
+				<div class="p-2 align-self-center">
+					<span>Nama Dosen</span>
+				</div>
+			</div>
+			<div class="d-flex justify-content-start border-muted border bg-light">
+				<div class="p-2">
+					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+				</div>
+				<div class="p-2 align-self-center">
+					<span>Nama Dosen</span>
+				</div>
+			</div>
+			<div class="d-flex justify-content-start border-muted border bg-light">
+				<div class="p-2">
+					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+				</div>
+				<div class="p-2 align-self-center">
+					<span>Nama Dosen</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 				</div>
 				<div class="card-footer" style="background-color: #fff;">
 					<div class="d-flex justify-content-start">

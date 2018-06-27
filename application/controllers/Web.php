@@ -120,8 +120,22 @@ class Web extends CI_Controller {
 			$this->load->view('footer');
 	}
 	public function siswa(){
-
 			$this->load->view('user/dashboard/siswa');
+			$this->load->view('footer');
+	}
+	public function tentang(){
+			$this->load->view('user/dashboard/tentang');
+			$this->load->view('footer');	
+	}
+	public function detail_lagi(){
+
+			$data = new stdClass();
+			$data->error = '';
+			$this->load->view('user/dashboard/detail',$data);
+			$this->load->view('footer');		
+	}
+	public function box_upload(){
+			$this->load->view('user/dashboard/dashboard');
 			$this->load->view('footer');
 	}
 

@@ -27,7 +27,6 @@
 <div class="container" style="margin-top: 100px;">
 	<div class="row">
 		<div class="col-md-12">
-			<h1 class="text-center">ini halaman dashboard</h1>
 			<?= $error; ?>
 			<form action="<?= base_url("index.php/control_upload/upload") ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
 		  		<div class="fallback">
