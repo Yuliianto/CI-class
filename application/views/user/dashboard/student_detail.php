@@ -39,7 +39,7 @@
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
-		<a class="" href="<?= base_url('index.php/web/detail'); ?>"><span class="fa fa-arrow-left fa-lg nav-link"></span></a>
+		<a class="" href="<?= base_url('index.php/web/timeline'); ?>"><span class="fa fa-arrow-left fa-lg nav-link"></span></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
@@ -49,7 +49,7 @@
   	<div class="navbar-nav">
 	  	<ul class="nav lead">
 	  		<li class="nav-item">
-	  			<a class="nav-link" href="<?= base_url('index.php/web/detail');?>">TIMELINE&nbsp;</a>
+	  			<a class="nav-link" href="<?= base_url('index.php/web/timeline');?>">TIMELINE&nbsp;</a>
 	  		</li>
 	  		<li class="nav-item">
 	  			<a class="nav-link active" href="<?= base_url('index.php/web/siswa');?>">SISWA&nbsp;</a>
@@ -196,7 +196,7 @@ selamat mengerjakan.
 <script type="text/javascript">
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
-			acceptedFiles: "image/*",
+			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
 			addRemoveLinks: true,
 			removedfile: function(file) {
 				var name = file.name;

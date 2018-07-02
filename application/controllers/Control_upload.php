@@ -9,7 +9,7 @@ class Control_upload extends CI_Controller {
 
 		if (! empty($_FILES)) {
 			$config['upload_path']="./uploads/";
-			$config['allowed_types']='gif|jpg|png';
+			$config['allowed_types']='gif|jpg|png|pdf|doc|docx';
 
 			$this->load->library('upload',$config);
 			$this->upload->initialize($config);

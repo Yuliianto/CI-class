@@ -114,34 +114,59 @@ class Web extends CI_Controller {
 			
 		}
 	}
-	public function detail(){
 
-			$this->load->view('user/dashboard/nav');
-			$this->load->view('user/dashboard/detil_course');
+	// Student Control Web
+	public function timeline(){
+			$this->load->view('user/dashboard/student_nav');
+			$this->load->view('user/dashboard/student_timeline');
 			$this->load->view('footer');
 	}
 	public function siswa(){
 		
-			$this->load->view('user/dashboard/nav');
-			$this->load->view('user/dashboard/siswa');
+			$this->load->view('user/dashboard/student_nav');
+			$this->load->view('user/dashboard/student_siswa');
 			$this->load->view('footer');
 	}
 	public function tentang(){
 
-			$this->load->view('user/dashboard/nav');
-			$this->load->view('user/dashboard/tentang');
+			$this->load->view('user/dashboard/student_nav');
+			$this->load->view('user/dashboard/student_tentang');
 			$this->load->view('footer');	
 	}
-	public function detail_lagi(){
+	public function detail(){
 			$data = new stdClass();
 			$data->error = '';
-			$this->load->view('user/dashboard/nav');
-			$this->load->view('user/dashboard/detail',$data);
+			$this->load->view('user/dashboard/student_nav');
+			$this->load->view('user/dashboard/student_detail',$data);
 			$this->load->view('footer');		
 	}
-	public function box_upload(){
-			$this->load->view('user/dashboard/dashboard');
+
+	// Teacher Control Web 
+	public function teachertimeline(){
+			$this->load->view('user/dashboard/teacher_nav');
+			$this->load->view('user/dashboard/teacher_timeline');
 			$this->load->view('footer');
+	}
+	public function teachersiswa(){
+		
+			$this->load->view('user/dashboard/teacher_nav');
+			$this->load->view('user/dashboard/teacher_siswa');
+			$this->load->view('footer');
+	}
+	public function teachertentang(){
+
+			$data = new stdClass();
+			$data->error = '';
+			$this->load->view('user/dashboard/teacher_nav');
+			$this->load->view('user/dashboard/teacher_tentang',$data);
+			$this->load->view('footer');	
+	}
+	public function teacherdetail(){
+			$data = new stdClass();
+			$data->error = '';
+			$this->load->view('user/dashboard/teacher_nav');
+			$this->load->view('user/dashboard/teacher_detail',$data);
+			$this->load->view('footer');		
 	}
 
 }

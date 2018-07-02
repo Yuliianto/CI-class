@@ -29,14 +29,14 @@
       <ul class="nav">
         <li class="navbar-nav nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-plus"></span></a>
-          <div class="dropdown-menu dropdown-menu-right" >        
+          <div class="dropdown-menu dropdown-menu-right rounded-0" >        
             <a href="#" class="dropdown-item" id="myBtn">Join</a>        
             <a href="#" class="dropdown-item" id="btnCreate">Create</a>        
           </div>
         </li>
         <li class="navbar-nav nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-bell"></span></a>
-          <div class="dropdown-menu dropdown-menu-right" >        
+          <div class="dropdown-menu dropdown-menu-right rounded-0" >        
             <a href="#" class="dropdown-item">Help</a>        
             <a href="#" class="dropdown-item">Account</a>        
             <a href="<?= base_url('index.php/web/logout'); ?>" class="dropdown-item">log out</i></a>
@@ -45,7 +45,7 @@
         <li class="navbar-nav nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-user-circle"></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" >        
+          <div class="dropdown-menu dropdown-menu-right rounded-0" >        
             <a href="#" class="dropdown-item">Help</a>        
             <a href="#" class="dropdown-item">Account</a>        
             <a href="<?= base_url('index.php/web/logout'); ?>" class="dropdown-item">log out</i></a>

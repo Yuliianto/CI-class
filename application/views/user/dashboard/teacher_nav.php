@@ -33,23 +33,23 @@
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
-    	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+    	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
-    	<span class="text-uppercase h4">Judul Course Kelas D 2018</span>
+    	<span class="text-uppercase h4">Kelas Baca Tulis 2018</span>
 	</div>
   <!-- Navbar Center -->
   <div class="navbar-nav">
   	<ul class="nav lead">
   		<li class="nav-item">
-  			<a class="nav-link active" href="<?= base_url('index.php/web/detail');?>">TIMELINE&nbsp;</a>
+  			<a class="nav-link active" href="<?= base_url('index.php/web/teachertimeline');?>">TIMELINE&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/siswa');?>">SISWA&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/teachersiswa');?>">SISWA&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/tentang');?>">TENTANG&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/teachertentang');?>">TENTANG&nbsp;</a>
   		</li>
   	</ul>
   </div>
@@ -70,7 +70,7 @@
 		width: 100%;
 		height: 350px;
 		margin-top: 55px;
-		background: url(<?= base_url('asset/images/header-card1.jpg');?>);
+		background: url(<?= base_url('asset/images/header-card0.jpg');?>);
 		color: #fff;
 	}
 	.sidenav {
