@@ -29,7 +29,7 @@
       <ul class="nav">
         <li class="navbar-nav nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-plus"></span></a>
-          <div class="dropdown-menu dropdown-menu-right rounded-0" >        
+          <div class="dropdown-menu dropdown-menu-right rounded-0" >      
             <a href="#" class="dropdown-item" id="myBtn">Join</a>        
             <a href="#" class="dropdown-item" id="btnCreate">Create</a>        
           </div>
@@ -46,9 +46,10 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href=""><span class="fa fa-user-circle"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right rounded-0" >        
-            <a href="#" class="dropdown-item">Help</a>        
-            <a href="#" class="dropdown-item">Account</a>        
-            <a href="<?= base_url('index.php/web/logout'); ?>" class="dropdown-item">log out</i></a>
+            <span href="#" class="dropdown-header"><b><?= $_SESSION['username']; ?></b><br><span class="text-muted"><?= $_SESSION['email']; ?></span></span>
+            <div class="dropdown-divider"></div>        
+            <a href="#" class="dropdown-item">akun</a>        
+            <a href="<?= base_url('index.php/web/logout'); ?>" class="dropdown-item">keluar</i></a>
           </div>
         </li>
       </ul>
@@ -88,7 +89,7 @@
   <!-- Modal Content -->
   <div class="modal-content">
     <label class="h3">Gabung kelas 
-        <span class="close btn btn-light">&times;</span></label>
+        <span class="close close-join btn btn-light">&times;</span></label>
     <p class="text-muted">Tanyakan kode kelas kepada dosen anda</p>
     <form>
       <div class="form-group">
@@ -123,41 +124,30 @@
     </form>
   </div>
 </div>
-
 <script>
-// Get the modal
-var modal = document.getElementById('myModal');
+var admin = "<?= $_SESSION['is_dosen'];?>";
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 $(document).ready(function(){
-  $("#btnCreate").click(function(){
-    $("#myCreate").css("display","block");
-  });
-  $(".close-create").click(function(){
-    $("#myCreate").css("display","none");
-  });
+  if (admin.length > 0) {
+    //dosen
+    $("#myBtn").css("display","none");
+    $("#btnCreate").click(function(){
+      $("#myCreate").css("display","block");
+    });
+    $(".close-create").click(function(){
+      $("#myCreate").css("display","none");
+    });
+  }else{
+    //bukan dosen
+    $("#btnCreate").css("display","none");
+    $("#myBtn").click(function(){
+      $("#myModal").css("display","block");
+    });
+    $(".close-join").click(function(){
+      $("#myModal").css("display","none");
+    });
+  }
 });
 
 </script>

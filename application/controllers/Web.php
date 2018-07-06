@@ -38,7 +38,8 @@ class Web extends CI_Controller {
 				$_SESSION['username']     = (string)$user->username;
 				$_SESSION['logged_in']    = (bool)true;
 				$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
-				$_SESSION['is_admin']     = (bool)$user->is_admin;
+				$_SESSION['is_dosen']     = (bool)$user->is_dosen;
+				$_SESSION['email']		  = (string)$user->email;
 				// user login ok
 				$data->error='';
 				$this->load->view('header');
