@@ -91,9 +91,10 @@
     <label class="h3">Gabung kelas 
         <span class="close close-join btn btn-light">&times;</span></label>
     <p class="text-muted">Tanyakan kode kelas kepada dosen anda</p>
-    <form>
+    <?= validation_errors(); ?>
+    <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
       <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="" placeholder="Kode kelas">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="enrol" placeholder="Kode kelas">
       </div>
       <div class="form-group">      
         <button type="submit" name="submit" class="btn btn-primary">Gabung</button>  
@@ -108,18 +109,19 @@
   <div class="modal-content">
     <label class="h3">Buat kelas 
         <span class="close close-create btn btn-light">&times;</span></label>
-    <form>
+        <?= validation_errors(); ?>
+    <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
       <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="" placeholder="Nama kelas">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="nama" placeholder="Nama kelas">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="" placeholder="Section">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="section" placeholder="Section">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="" placeholder="Subject">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="deskripsi" placeholder="Subject">
       </div>
       <div class="form-group">      
-        <button type="submit" name="submit" class="btn btn-primary">Buat</button>  
+        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
       </div>
     </form>
   </div>

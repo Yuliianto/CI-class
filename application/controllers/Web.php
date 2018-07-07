@@ -17,9 +17,7 @@ class Web extends CI_Controller {
 			if (empty($_SESSION['logged_in'])) {
 				$this->load->view('index');
 			}else{
-				$this->load->view('header');
-				$this->load->view('user/dashboard/course', $data);
-				$this->load->view('footer');
+				header("location:".base_url('index.php/web/dashboard'));
 			}
 			
 		} else {
@@ -42,9 +40,7 @@ class Web extends CI_Controller {
 				$_SESSION['email']		  = (string)$user->email;
 				// user login ok
 				$data->error='';
-				$this->load->view('header');
-				$this->load->view('user/dashboard/course', $data);
-				$this->load->view('footer');
+				header("location:".base_url('index.php/web/dashboard'));
 				
 			} else {
 				
@@ -58,6 +54,59 @@ class Web extends CI_Controller {
 			
 		}
 
+	}
+	public function dashboard(){
+	/*	$data = new stdClass();*/
+			if ($_SESSION['is_dosen']=='1') {
+				$this->form_validation->set_rules('nama','Nama', 'trim|required');			
+				$data['kelas'] = $this->dtmodel->show_kelas($_SESSION['username']);
+			}else{
+				$this->form_validation->set_rules('enrol','Enrol', 'trim|required');
+				$data['kelas'] = $this->dtmodel->class_joined($_SESSION['username']);
+			}
+			
+			if ($this->form_validation->run()===false) {
+				if (empty($_SESSION['logged_in'])) {
+					$this->load->view('index');
+				}else{
+					$this->load->view('header');
+					$this->load->view('user/dashboard/course', $data);
+					$this->load->view('footer');
+				}
+			}else {
+					if ($_SESSION['is_dosen']=='1') {
+						$nama 	   = $this->input->post('nama');
+						$section   = $this->input->post('section');
+						$deskripsi = $this->input->post('deskripsi');
+
+						$dt = array('kelas_id'=>null,
+									'nama'=> $nama,
+									'section'=>$section,
+									'deskripsi'=>$deskripsi,
+									'enrol'=>substr(md5($nama), 5),
+									'nip'=>$_SESSION['username']);
+
+						if ($this->dtmodel->create_class($dt)) {
+							header("location:".base_url('index.php/web/'));
+						}else{
+							echo "error";
+						}
+					}else{
+						$enrol 	  = $this->input->post('enrol');
+						$kelas = $this->dtmodel->get_kelas_id_from_enrol($enrol);
+						$kelas_id = (int)$kelas->kelas_id;
+						$dt = array('anggota_id'=>null,
+									'nim'=>$_SESSION['username'],
+									'kelas_id'=> $kelas_id);
+					
+						if ($this->dtmodel->join($dt)) {
+							header("location:".base_url('index.php/web/'));
+							echo "<br><br><br><p></p>$kelas_id";
+						}else{
+							echo "error";
+						}
+					}
+			}
 	}
 	public function logout(){
 		session_destroy();
@@ -95,7 +144,8 @@ class Web extends CI_Controller {
 			$dt  = array('username' => $username,
 						 'email' => $email,
 						 'password' => $this->encryption->encrypt($password),
-						 'created_at'=>date('Y-m-j H:i:s'));
+						 'created_at'=>date('Y-m-j H:i:s'),
+						 'is_dosen'=>$this->dtmodel->is_dosen($username));
 			if ($this->dtmodel->create_user($dt)) {
 				
 				// user creation ok
@@ -114,6 +164,10 @@ class Web extends CI_Controller {
 			}
 			
 		}
+	}
+
+	public function buat_kelas(){
+		$data = new stdClass();
 	}
 
 	// Student Control Web

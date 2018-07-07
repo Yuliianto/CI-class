@@ -17,7 +17,32 @@
 	</div>
 </header>
 &nbsp;
+<style type="text/css">
+.btn-round {
+	padding: 9px 3px 5px 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.btn-round.btn-lg {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-round.btn-sm {
+    width: 34px;
+    height: 34px;
+}
+
+.btn-round.btn-xs {
+    width: 24px;
+    height: 24px;
+}
+</style>
+
 <div class="container">
+
 	<div class="row">
 		<div class="col-md-3">
 			<div class="row">
@@ -46,6 +71,12 @@
 			</div>&nbsp;
 		</div>
 		<div class="col-md">
+			<div class="container">
+				<a href="#" class="btn btn-primary btn-round btn-lg"><span class="fa fa-bullhorn fa-lg"></span></a>
+				<a href="#" class="btn btn-danger btn-round btn-lg"><span class="fa fa-clipboard fa-lg"></span></a>
+				<a href="#" class="btn btn-info btn-round btn-lg"><span class="fa fa-keyboard fa-lg"></span></a>
+			</div>
+			&nbsp;
 			<div class="card" id="panel-tugas">
 				<div class=" border-bottom border-primary" style="background: #fff;">
 					<div class="" style="">
@@ -82,7 +113,7 @@
 							<div class="row">
 								<div class="col-md">
 									<span class="text-muted">batas waktu : 22 juni 2018, 00:00</span><br>
-									<a href="" class="h2">Kuis Kecerdasan Buatan</a>
+									<a href="" class="h4">Kuis Kecerdasan Buatan</a>
 									<p>
 										test postingan
 									</p>

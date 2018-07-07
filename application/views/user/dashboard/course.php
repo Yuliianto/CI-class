@@ -15,42 +15,52 @@
 	</style>
 <div class="container-fluid" style="margin-top: 100px;">
 	<div class="row">
-		<?php /*for ($i=0; $i < 4; $i++) {*/ ?>
-			<div class="col-3" style="min-width: 320px;">
-				<div class="card">
-					<div class="card-header rounded-0" style="color: #fff;background: url(<?= base_url("asset/images/header-card1.jpg"); ?>) red ; min-height: 100px; background-size: cover;">
-						<div style="background: rgba(76, 175, 80, 0.2); width: 100%;min-height: 100px;position: absolute;top:0px;left: 0px;"></div>
-						<div class="position-sticky">
-					      	<a href="<?= base_url('index.php/web/timeline');?>"><span class="card-title h3">Kelas AI</span></a><b class="fa fa-trash pull-right"></b>
-						</div>
-					</div>
-				    <div class="card-body rounded-0" style="min-height: 150px;">
-				      <p class="card-text">Some example text. Some example text. Infromasi tentang class ada disini semua silakan klik kotak ini </p>
-				    </div>
-				    <div class="card-footer bg-dark rounded-0">
-				      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
-				      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
-				    </div>
-				</div><br>
-			</div> 
-		<?php /*}*/ ?>
 
-			<div class="col-3" style="min-width: 320px;">
-				<div class="card">
-					<div class="card-header rounded-0" style="color: #fff;background: url(<?= base_url("asset/images/header-card0.jpg"); ?>) red ; min-height: 100px; background-size: cover;">
-						<div style="background: rgba(76, 175, 80, 0.2); width: 100%;min-height: 100px;position: absolute;top:0px;left: 0px;"></div>
-						<div class="position-sticky">
-					      	<a href="<?= base_url('index.php/web/teachertimeline');?>"><span class="card-title h3">Kelas Baca Tulis</span></a><b class="fa fa-trash pull-right"></b>
-						</div>
-					</div>
-				    <div class="card-body rounded-0" style="min-height: 150px;">
-				      <p class="card-text">Some example text. Some example text. Infromasi tentang class ada disini semua silakan klik kotak ini </p>
-				    </div>
-				    <div class="card-footer bg-dark rounded-0">
-				      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
-				      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
-				    </div>
-				</div><br>
-			</div> 
+		<?php
+			if ($_SESSION['is_dosen']=='1') { ?>
+				<!-- dosen -->
+				<?php foreach ($kelas->result_array() as $i) { ?>
+					<div class="col-3" style="min-width: 320px;">
+						<div class="card">
+							<div class="card-header rounded-0" style="color: #fff;background: url(<?= base_url("asset/images/header-card0.jpg"); ?>) red ; min-height: 100px; background-size: cover;">
+								<div style="background: rgba(76, 175, 80, 0.2); width: 100%;min-height: 100px;position: absolute;top:0px;left: 0px;"></div>
+								<div class="position-sticky">
+							      	<a href="<?= base_url('index.php/web/teachertimeline');?>"><span class="card-title h3"><?= $i['nama']; ?></span></a><b class="fa fa-trash pull-right"></b>
+								</div>
+							</div>
+						    <div class="card-body rounded-0" style="min-height: 150px;">
+						      <p class="card-text"><?= $i['deskripsi']; ?></p>
+						    </div>
+						    <div class="card-footer bg-dark rounded-0">
+						      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
+						      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
+						    </div>
+						</div><br>
+					</div> 
+				<?php } ?>
+		<?php	}else{ ?>
+				<!-- mahasiswa -->
+					<?php foreach ($kelas->result_array() as $i) {
+					 ?>
+						<div class="col-3" style="min-width: 320px;">
+							<div class="card">
+								<div class="card-header rounded-0" style="color: #fff;background: url(<?= base_url("asset/images/header-card1.jpg"); ?>) red ; min-height: 100px; background-size: cover;">
+									<div style="background: rgba(76, 175, 80, 0.2); width: 100%;min-height: 100px;position: absolute;top:0px;left: 0px;"></div>
+									<div class="position-sticky">
+								      	<a href="<?= base_url('index.php/web/timeline');?>"><span class="card-title h3"><?= $i['nama']; ?></span></a><b class="fa fa-trash pull-right"></b>
+									</div>
+								</div>
+							    <div class="card-body rounded-0" style="min-height: 150px;">
+							      <p class="card-text"><?= $i['deskripsi']; ?></p>
+							    </div>
+							    <div class="card-footer bg-dark rounded-0">
+							      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
+							      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
+							    </div>
+							</div><br>
+						</div> 
+					<?php } ?>
+		<?php	}
+		 ?>
 	</div>
 </div>

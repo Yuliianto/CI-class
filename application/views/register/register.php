@@ -71,7 +71,7 @@
 							<div class="form-group row">
 								<label for='username' class="col-sm-4 col-form-label">Username</label>
 								<div class="col-sm-4">
-									<input type="text" name="username" class="form-control" placeholder="Enter Username">
+									<input type="text" name="username" class="form-control" placeholder="Nim / Nip">
 								</div>
 							</div>
 							<div class="form-group row">
