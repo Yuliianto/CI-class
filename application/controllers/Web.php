@@ -108,6 +108,18 @@ class Web extends CI_Controller {
 					}
 			}
 	}
+	public function do_delete_joined($kelas_id){
+		$do = $this->dtmodel->delete_joined($kelas_id);
+		if ($do) {
+			header("location:".base_url('index.php/web'));
+		}
+	}
+	public function delete_kelas($kelas_id){
+		$do = $this->dtmodel->delete_kelas($kelas_id);
+		if ($do) {
+			header("location:".base_url('index.php/web'));
+		}
+	}
 	public function logout(){
 		session_destroy();
 		header("location:".base_url('/'));

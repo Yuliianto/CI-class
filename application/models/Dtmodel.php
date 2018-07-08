@@ -78,6 +78,14 @@ class Dtmodel extends CI_Model {
 		$res = $this->db->insert('anggota',$data);
 		return $res;
 	}
+	public function delete_joined($id){
+		$res = $this->db->delete('anggota',array('kelas_id'=>$id,'nim'=>$_SESSION['username']));
+		return $res;
+	}
+	public function delete_kelas($id){
+		$res = $this->db->delete('kelas',array('kelas_id'=>$id,'nip'=>$_SESSION['username']));
+		return $res;
+	}
 	public function class_joined($nim){
 		$this->db->select('*');
 		$this->db->from('kelas');

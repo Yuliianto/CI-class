@@ -72,9 +72,9 @@
 		</div>
 		<div class="col-md">
 			<div class="container">
-				<a href="#" class="btn btn-primary btn-round btn-lg"><span class="fa fa-bullhorn fa-lg"></span></a>
-				<a href="#" class="btn btn-danger btn-round btn-lg"><span class="fa fa-clipboard fa-lg"></span></a>
-				<a href="#" class="btn btn-info btn-round btn-lg"><span class="fa fa-keyboard fa-lg"></span></a>
+				<a href="#" class="btn btn-primary btn-round btn-lg btn-pengumuman" data-toggle="tooltip" data-placement="top" title="pengumuman"><span class="fa fa-bullhorn fa-xs"></span></a>
+				<a href="#" class="btn btn-danger btn-round btn-lg btn-tugas" data-toggle="tooltip" data-placement="top" title="tugas"><span class="fa fa-clipboard fa-xs"></span></a>
+				<a href="#" class="btn btn-info btn-round btn-lg btn-kuiz" data-toggle="tooltip" data-placement="top" title="kuiz"><span class="fa fa-laptop fa-xs"></span></a>
 			</div>
 			&nbsp;
 			<div class="card" id="panel-tugas">
@@ -208,3 +208,64 @@
 	</div>
 </div>
 <br>
+
+
+<!-- The Modal -->
+<style type="text/css">
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+</style>
+<div id="Modal-pengumuman" class="modal">
+  <!-- Modal Content -->
+  <div class="modal-content">
+    <label class="h3">Buat kelas 
+        <span class="close close-create btn btn-light">&times;</span></label>
+        <?= validation_errors(); ?>
+    <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="nama" placeholder="Nama kelas">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="section" placeholder="Section">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="deskripsi" placeholder="Subject">
+      </div>
+      <div class="form-group">      
+        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $(".btn-pengumuman").click(function(){
+    	$(".modal").css("display","block");
+    }); 
+});
+</script>
