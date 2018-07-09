@@ -33,23 +33,23 @@
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
-    	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    	<span style="font-size:30px;cursor:pointer" class="h4" onclick="openNav()">&#9776;</span>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
-    	<span class="text-uppercase h4">Kelas Baca Tulis 2018</span>
+    	<span class="text-uppercase h4"><?= $dt->kelas; ?></span>
 	</div>
   <!-- Navbar Center -->
   <div class="navbar-nav">
   	<ul class="nav lead">
   		<li class="nav-item">
-  			<a class="nav-link active" href="<?= base_url('index.php/web/teachertimeline');?>">TIMELINE&nbsp;</a>
+  			<a class="nav-link active" href="<?= base_url('index.php/web/teachertimeline/'.$dt->kelas_id);?>">TIMELINE&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/teachersiswa');?>">SISWA&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/teachersiswa/'.$dt->kelas_id);?>">SISWA&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/teachertentang');?>">TENTANG&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/teachertentang/'.$dt->kelas_id);?>">TENTANG&nbsp;</a>
   		</li>
   	</ul>
   </div>

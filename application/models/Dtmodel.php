@@ -93,4 +93,20 @@ class Dtmodel extends CI_Model {
 		$this->db->where('anggota.nim',$nim);
 		return $this->db->get();
 	}
+	public function kelas_dosen($id){
+		$this->db->select('*');
+		$this->db->from('kelas');
+		$this->db->join('dosen','kelas.nip=dosen.nik');
+		$this->db->where('kelas.kelas_id',$id);
+		return $this->db->get()->row();
+	}
+	public function insert_post($data){
+		$res = $this->db->insert('posting',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	public function do_insert_pengumuman($data){
+		$res = $this->db->insert('pengumuman',$data);
+		return $res;
+	}
 }

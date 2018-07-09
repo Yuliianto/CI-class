@@ -6,10 +6,10 @@
 		<div class="row">
 			<div class="col-md text-center">
 				<p><br><br><br>
-					<h3 class="">Kelas Baca Tulis</h3>
+					<h3 class=""><?= $dt->kelas; ?></h3>
 					<div class="text-center">
 					  	<img src="<?= base_url('asset/images/owner-male.png'); ?>" class="rounded  mx-auto d-block" alt="iBU uLFI" width="100"><br>
-					  	<h4 class="font-weight-light">Mr. Johan</h4>
+					  	<h4 class="font-weight-light"><?= $dt->nama;?></h4>
 					</div>
 				</p>
 			</div>
@@ -39,8 +39,27 @@
     width: 24px;
     height: 24px;
 }
+.fixed {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 10px;
+    right: 0;
+    width: 300%;
+    z-index: 1;
+    text-align: right;
+}
+.fixed a{
+	margin: 10px;
+}
+.kotak{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+}
 </style>
-
+		
 <div class="container">
 
 	<div class="row">
@@ -71,11 +90,6 @@
 			</div>&nbsp;
 		</div>
 		<div class="col-md">
-			<div class="container">
-				<a href="#" class="btn btn-primary btn-round btn-lg btn-pengumuman" data-toggle="tooltip" data-placement="top" title="pengumuman"><span class="fa fa-bullhorn fa-xs"></span></a>
-				<a href="#" class="btn btn-danger btn-round btn-lg btn-tugas" data-toggle="tooltip" data-placement="top" title="tugas"><span class="fa fa-clipboard fa-xs"></span></a>
-				<a href="#" class="btn btn-info btn-round btn-lg btn-kuiz" data-toggle="tooltip" data-placement="top" title="kuiz"><span class="fa fa-laptop fa-xs"></span></a>
-			</div>
 			&nbsp;
 			<div class="card" id="panel-tugas">
 				<div class=" border-bottom border-primary" style="background: #fff;">
@@ -241,7 +255,46 @@
 <div id="Modal-pengumuman" class="modal">
   <!-- Modal Content -->
   <div class="modal-content">
-    <label class="h3">Buat kelas 
+    <label class="h3">Pengumuman 
+        <span class="close close-create btn btn-light">&times;</span></label>
+        <?= validation_errors(); ?>
+    <form action="<?= base_url('index.php/web/post_pengumuman/'.$dt->kelas_id); ?>" method="post">
+      <div class="form-group">
+      	<textarea class="form-control textarea-tiny" style="height:120px;" name="pengumuman"></textarea>
+      </div>
+      <div class="form-group">      
+        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="Modal-tugas" class="modal">
+  <!-- Modal Content -->
+  <div class="modal-content">
+    <label class="h3">Tugas 
+        <span class="close close-create btn btn-light">&times;</span></label>
+        <?= validation_errors(); ?>
+    <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="judul" placeholder="judul">
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="batas_waktu" >
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="deskripsi" placeholder="Subject">
+      </div>
+      <div class="form-group">      
+        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
+      </div>
+    </form>
+  </div>
+</div>
+<div id="Modal-kuiz" class="modal">
+  <!-- Modal Content -->
+  <div class="modal-content">
+    <label class="h3">Kuiz 
         <span class="close close-create btn btn-light">&times;</span></label>
         <?= validation_errors(); ?>
     <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
@@ -261,11 +314,43 @@
   </div>
 </div>
 
+<div class="kotak">
+	<div class="fixed">
+		<a href="#" class="btn btn-primary btn-round btn-lg btn-pengumuman" data-toggle="tooltip" data-placement="top" title="pengumuman"><span class="fa fa-bullhorn fa-xs"></span></a>
+		<br><a href="#" class="btn btn-danger btn-round btn-lg btn-tugas" data-toggle="tooltip" data-placement="top" title="tugas"><span class="fa fa-clipboard fa-xs"></span></a>
+		<br><a href="#" class="btn btn-info btn-round btn-lg btn-kuiz" data-toggle="tooltip" data-placement="top" title="kuiz"><span class="fa fa-laptop fa-xs"></span></a>
+	</div>
+</div>
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-    $(".btn-pengumuman").click(function(){
-    	$(".modal").css("display","block");
-    }); 
 });
 </script>
+<script type="text/javascript">
+$(document).ready(function(){
+   $(".btn-pengumuman").click(function(){
+    	$("#Modal-pengumuman").css("display","block");
+    });   
+   $(".btn-tugas").click(function(){
+    	$("#Modal-tugas").css("display","block");
+    });   
+   $(".btn-kuiz").click(function(){
+    	$("#Modal-kuiz").css("display","block");
+    }); 
+   $('.btn-pengumuman , .btn-tugas , .btn-kuiz').mouseover(function(){
+   		$('.kotak').css('background-color','rgba(0,0,0,0.4)');
+   });
+   $('.btn-pengumuman , .btn-tugas , .btn-kuiz').mouseleave(function(){
+   		$('.kotak').css('background-color','rgba(0,0,0,0)');
+   });
+
+   $('.close').click(function(){
+   		$('.modal').css('display','none');
+   });
+});
+</script>
+
+<!-- TINY MCE -->
+
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'.textarea-tiny' });</script>

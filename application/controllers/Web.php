@@ -209,22 +209,42 @@ class Web extends CI_Controller {
 	}
 
 	// Teacher Control Web 
-	public function teachertimeline(){
-			$this->load->view('user/dashboard/teacher_nav');
-			$this->load->view('user/dashboard/teacher_timeline');
+	public function teachertimeline($kelas_id){
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$this->load->view('user/dashboard/teacher_nav',$data);
+			$this->load->view('user/dashboard/teacher_timeline',$data);
 			$this->load->view('footer');
 	}
-	public function teachersiswa(){
-		
-			$this->load->view('user/dashboard/teacher_nav');
-			$this->load->view('user/dashboard/teacher_siswa');
+	public function post_pengumuman($kelas_id){
+		$dt_post   = array('post_id'=>null,
+						   'waktu'=>date('Y-m-d H:m:s'),
+						   'nip'=>$_SESSION['username'],
+						   'kelas_id'=>$kelas_id,
+						   'jenis'=>'pengumuman');
+		$do_posti  = $this->dtmodel->insert_post($dt_post);
+		/*$do_insert = $this->dtmodel->insert_pengumuman();*/
+		if (!$do_posti) {
+			$this->db->error();
+		}else{
+			$dt_peng = array('pengumuman_id'=>null,
+							 'pengumuman' => $this->input->post('pengumuman'),
+							 'topik_id'=>null,
+							 'post_id'=>$do_posti);
+			$do_insert_pengumuman = $this->dtmodel->do_insert_pengumuman($dt_peng);
+			if ($do_insert_pengumuman) {
+				print_r($dt_peng);
+			}
+		}
+	}
+	public function teachersiswa($kelas_id){
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$this->load->view('user/dashboard/teacher_nav',$data);
+			$this->load->view('user/dashboard/teacher_siswa',$data);
 			$this->load->view('footer');
 	}
-	public function teachertentang(){
-
-			$data = new stdClass();
-			$data->error = '';
-			$this->load->view('user/dashboard/teacher_nav');
+	public function teachertentang($kelas_id){
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_tentang',$data);
 			$this->load->view('footer');	
 	}
