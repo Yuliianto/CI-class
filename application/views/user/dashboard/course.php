@@ -49,7 +49,7 @@
 								<div class="card-header rounded-0" style="color: #fff;background: url(<?= base_url("asset/images/header-card1.jpg"); ?>) red ; min-height: 100px; background-size: cover;">
 									<div style="background: rgba(76, 175, 80, 0.2); width: 100%;min-height: 100px;position: absolute;top:0px;left: 0px;"></div>
 									<div class="position-sticky">
-								      	<a href="<?= base_url('index.php/web/timeline');?>"><span class="card-title h3"><?= $i['nama']; ?></span></a>
+								      	<a href="<?= base_url('index.php/web/timeline/'.$i['kelas_id']);?>"><span class="card-title h3"><?= $i['kelas']; ?></span></a>
 								      	<a href="<?= base_url('index.php/web/do_delete_joined/'.$i['kelas_id']); ?>"><b class="fa fa-trash pull-right"></b></a>
 									</div>
 								</div>

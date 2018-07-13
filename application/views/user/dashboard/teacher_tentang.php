@@ -40,7 +40,7 @@
 			font-size: 200%;
 			margin-bottom: 15px;
 		}
-	</style>
+</style>
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
@@ -51,7 +51,9 @@
 							<div class="card-title">
 								<span class="text-uppercase font-weight-normal">Daftar Tugas</span>
 							</div>
-							<p class="font-weight-light text-muted">Sejauh ini belum ada tugas</p>
+							<?php foreach ($posting_tugas->result_array() as $t) { ?>
+								<p class="font-weight-light text-muted"><?= $t['judul']; ?></p>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -63,7 +65,7 @@
 							<div class="card-title">
 								<span class="text-uppercase font-weight-normal">Topik</span>
 							</div>
-							<p class="font-weight-light text-muted">Sejauh ini belum ada tugas</p>
+							<p class="font-weight-light text-muted">-</p>
 						</div>
 					</div>
 				</div>
@@ -72,14 +74,13 @@
 		<div class="col-md">
 			<div class="card">
 				<div class="card-body">
-					<p class="h1"> Kecerdasan Buatan
-				</p>
+					<p class="h4"><?= $dt->kelas; ?></p>
 				</div>
 			</div>
 			<p></p>
 			<div class="card">
 				<div class="card-body">
-					<p class="h3">Drop material untuk upload </p>
+					<p class="h4">Drop material untuk upload to </p>
 					<div class="container" style="margin-top: 0px;">
 	<div class="row justify-content-center">
 		<div class="col">
@@ -89,8 +90,8 @@
 					<div class="col">
 						<div class="container" style="background-color: #fff;">
 						<br>
-						<?= $error; ?>
-						<form action="<?= base_url("index.php/control_upload/upload") ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
+						
+						<form action="<?= base_url("index.php/control_upload/upload/") ?><?= $dt->enrol; ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
 					  		<div class="fallback">
 								<input name="file" type="file"  />
 								<input type="submit" name="submit" value="upload">
@@ -146,7 +147,7 @@
 
 				$.ajax({
 					type: "post",
-					url: "<?= base_url("index.php/control_upload/remove")?>",
+					url: "<?= base_url("index.php/control_upload/remove/")?><?= $dt->enrol; ?>",
 					data: { file: name },
 					dataType: 'html'
 				});
@@ -157,13 +158,13 @@
 			},
 			init: function() {
 				var me = this;
-				$.get("<?= base_url("index.php/control_upload/list_files") ?>", function(data) {
+				$.get("<?= base_url("index.php/control_upload/list_files/") ?><?= $dt->enrol; ?>", function(data) {
 					// if any files already in server show all here
 					if (data.length > 0) {
 						$.each(data, function(key, value) {
 							var mockFile = value;
 							me.emit("addedfile", mockFile);
-							me.emit("thumbnail", mockFile, "<?php echo base_url(); ?>uploads/" + value.name);
+							me.emit("thumbnail", mockFile, "<?php echo base_url(); ?>uploads/<?= $dt->enrol; ?>/" + value.name);
 							me.emit("complete", mockFile);
 						});
 					}

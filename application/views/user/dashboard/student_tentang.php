@@ -30,7 +30,9 @@
 							<div class="card-title">
 								<span class="text-uppercase font-weight-normal">Daftar Tugas</span>
 							</div>
-							<p class="font-weight-light text-muted">Sejauh ini belum ada tugas</p>
+							<?php foreach ($posting_tugas->result_array() as $t) { ?>
+								<p class="font-weight-light text-muted"><?= $t['judul']; ?></p>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -42,7 +44,7 @@
 							<div class="card-title">
 								<span class="text-uppercase font-weight-normal">Topik</span>
 							</div>
-							<p class="font-weight-light text-muted">Sejauh ini belum ada tugas</p>
+							<p class="font-weight-light text-muted">-</p>
 						</div>
 					</div>
 				</div>
@@ -51,8 +53,7 @@
 		<div class="col-md">
 			<div class="card">
 				<div class="card-body">
-					<p class="h1"> Kecerdasan Buatan
-				</p>
+					<p class="h3"><?= $dt->kelas; ?></p>
 				</div>
 			</div>
 			<p></p>
@@ -62,38 +63,18 @@
 					<div class="container" style="margin-top: 0px;">
 	<div class="row justify-content-center">
 		<div class="col">
-			<div class="d-flex justify-content-start border-muted border bg-light">
-				<div class="p-2">
-					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+			<?php 
+				foreach ($files as $file ) { ?>
+				<div class="d-flex justify-content-start border-muted border bg-light">
+					<div class="p-2">
+						<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+					</div>
+					<div class="p-2 align-self-center">
+						<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
+					</div>
 				</div>
-				<div class="p-2 align-self-center">
-					<span>Nama Dosen</span>
-				</div>
-			</div>
-			<div class="d-flex justify-content-start border-muted border bg-light">
-				<div class="p-2">
-					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-				</div>
-				<div class="p-2 align-self-center">
-					<span>Nama Dosen</span>
-				</div>
-			</div>
-			<div class="d-flex justify-content-start border-muted border bg-light">
-				<div class="p-2">
-					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-				</div>
-				<div class="p-2 align-self-center">
-					<span>Nama Dosen</span>
-				</div>
-			</div>
-			<div class="d-flex justify-content-start border-muted border bg-light">
-				<div class="p-2">
-					<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-				</div>
-				<div class="p-2 align-self-center">
-					<span>Nama Dosen</span>
-				</div>
-			</div>
+			<?php	}
+			?>
 		</div>
 	</div>
 </div>

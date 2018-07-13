@@ -37,19 +37,19 @@
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
-    	<span class="text-uppercase h4">Kelas AI 2018</span>
+    	<span class="text-uppercase h5"><?= $dt->kelas; ?></span>
 	</div>
   <!-- Navbar Center -->
   <div class="navbar-nav">
   	<ul class="nav lead">
   		<li class="nav-item">
-  			<a class="nav-link active" href="<?= base_url('index.php/web/timeline');?>">TIMELINE&nbsp;</a>
+  			<a class="nav-link active" href="<?= base_url('index.php/web/timeline/');?><?= $dt->kelas_id; ?>">TIMELINE&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/siswa');?>">SISWA&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/siswa/');?><?= $dt->kelas_id; ?>">SISWA&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/tentang');?>">TENTANG&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/tentang/');?><?= $dt->kelas_id; ?>/<?= $dt->enrol; ?>">TENTANG&nbsp;</a>
   		</li>
   	</ul>
   </div>

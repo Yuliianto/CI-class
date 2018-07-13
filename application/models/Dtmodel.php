@@ -109,4 +109,60 @@ class Dtmodel extends CI_Model {
 		$res = $this->db->insert('pengumuman',$data);
 		return $res;
 	}
+	public function do_insert_tugas($data){
+		$res = $this->db->insert('tugas',$data);
+		return $res;
+	}
+	public function show_posting($username,$kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
+	public function show_posting_pengumuman($username,$kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->join('pengumuman','posting.post_id=pengumuman.post_id');
+		$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
+	public function show_posting_tugas($username,$kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->join('tugas','posting.post_id=tugas.post_id');
+		$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
+	public function show_posting_tugas_siswa($kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->join('tugas','posting.post_id=tugas.post_id');
+		$this->db->where(array('kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
+	public function siswa($kelas_id){
+		$this->db->select('*');
+		$this->db->from('anggota');
+		$this->db->join('mahasiswa','anggota.nim=mahasiswa.nim');
+		$this->db->where(array('kelas_id'=>$kelas_id));
+		return $this->db->get();
+	}
+	public function anggota($kelas_id,$nim){
+		$this->db->select("*");
+		$this->db->from("anggota");
+		$this->db->join("kelas","anggota.kelas_id=kelas.kelas_id");
+		$this->db->join("dosen","kelas.nip=dosen.nik");
+		$this->db->where(array('anggota.nim'=>$nim,'anggota.kelas_id'=>$kelas_id));
+		return $this->db->get()->row();
+	}
+	public function post_last_row($nip,$kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->where(array('nip'=>$nip,'kelas_id'=>$kelas_id));
+		return $this->db->get()->last_row();
+	}
 }

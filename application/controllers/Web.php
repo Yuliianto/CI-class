@@ -80,7 +80,7 @@ class Web extends CI_Controller {
 						$deskripsi = $this->input->post('deskripsi');
 
 						$dt = array('kelas_id'=>null,
-									'nama'=> $nama,
+									'kelas'=> $nama,
 									'section'=>$section,
 									'deskripsi'=>$deskripsi,
 									'enrol'=>substr(md5($nama), 5),
@@ -183,20 +183,38 @@ class Web extends CI_Controller {
 	}
 
 	// Student Control Web
-	public function timeline(){
-			$this->load->view('user/dashboard/student_nav');
-			$this->load->view('user/dashboard/student_timeline');
+	public function timeline($kelas_id){
+			$show_enrol = $this->dtmodel->kelas_dosen($kelas_id);
+			$enrol = (string)$show_enrol->enrol;
+			$enrol_path = "./uploads/".$enrol;
+			$this->load->helper("file");
+			$nip = $this->dtmodel->anggota($kelas_id,$_SESSION['username']);
+			$data = array('dt' => $this->dtmodel->anggota($kelas_id,$_SESSION['username']),
+						  'posting' => $this->dtmodel->show_posting((string)$nip->nip,$kelas_id),
+						  'posting_pengumuman' => $this->dtmodel->show_posting_pengumuman((string)$nip->nip,$kelas_id),
+						  'files'=>get_filenames($enrol_path),
+						  'posting_tugas' => $this->dtmodel->show_posting_tugas((string)$nip->nip,$kelas_id));
+			$this->load->view('user/dashboard/student_nav',$data);
+			$this->load->view('user/dashboard/student_timeline',$data);
 			$this->load->view('footer');
 	}
-	public function siswa(){
+	public function siswa($kelas_id){
 		
-			$this->load->view('user/dashboard/student_nav');
+			$data = array('dt' => $this->dtmodel->anggota($kelas_id,$_SESSION['username']),
+						  'siswa' => $this->dtmodel->siswa($kelas_id));
+			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_siswa');
 			$this->load->view('footer');
 	}
-	public function tentang(){
-
-			$this->load->view('user/dashboard/student_nav');
+	public function tentang($kelas_id,$enrol){
+			$enrol_path = "./uploads/".$enrol;
+			$this->load->helper("file");
+			
+			
+			$data = array('dt' => $this->dtmodel->anggota($kelas_id,$_SESSION['username']),
+						  'files'=>get_filenames($enrol_path),
+						  'posting_tugas' => $this->dtmodel->show_posting_tugas_siswa($kelas_id));
+			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_tentang');
 			$this->load->view('footer');	
 	}
@@ -210,7 +228,16 @@ class Web extends CI_Controller {
 
 	// Teacher Control Web 
 	public function teachertimeline($kelas_id){
-			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$show_enrol = $this->dtmodel->kelas_dosen($kelas_id);
+			$enrol = (string)$show_enrol->enrol;
+			$enrol_path = "./uploads/".$enrol;
+			$this->load->helper("file");
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id),
+						  'posting' => $this->dtmodel->show_posting($_SESSION['username'],$kelas_id),
+						  'posting_pengumuman' => $this->dtmodel->show_posting_pengumuman($_SESSION['username'],$kelas_id),
+						  'files'=>get_filenames($enrol_path),
+						  'posting_tugas' => $this->dtmodel->show_posting_tugas($_SESSION['username'],$kelas_id),
+						  'last_row'=>$this->dtmodel->post_last_row($_SESSION['username'],$kelas_id));
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_timeline',$data);
 			$this->load->view('footer');
@@ -232,28 +259,54 @@ class Web extends CI_Controller {
 							 'post_id'=>$do_posti);
 			$do_insert_pengumuman = $this->dtmodel->do_insert_pengumuman($dt_peng);
 			if ($do_insert_pengumuman) {
-				print_r($dt_peng);
+				header("location:".base_url('index.php/web/teachertimeline/'.$kelas_id));
+			}
+		}
+	}
+	public function post_tugas($kelas_id){
+		$dt_post   = array('post_id'=>null,
+						   'waktu'=>date('Y-m-d H:m:s'),
+						   'nip'=>$_SESSION['username'],
+						   'kelas_id'=>$kelas_id,
+						   'jenis'=>'tugas');
+		$do_posti  = $this->dtmodel->insert_post($dt_post);
+		/*$do_insert = $this->dtmodel->insert_pengumuman();*/
+		if (!$do_posti) {
+			$this->db->error();
+		}else{
+			$dt_tugas = array('tugas_id'=>null,
+							 'judul' => $this->input->post('judul'),
+							 'instruksi' => $this->input->post('instruksi'),
+							 'batas_waktu'=>$this->input->post('batas_waktu'),
+							 'topik_id'=>null,
+							 'materi'=>null,
+							 'post_id'=>$do_posti);
+			$do_insert_tugas = $this->dtmodel->do_insert_tugas($dt_tugas);
+			if ($do_insert_tugas) {
+				header("location:".base_url('index.php/web/teachertimeline/'.$kelas_id));
 			}
 		}
 	}
 	public function teachersiswa($kelas_id){
-			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id),
+						  'siswa' => $this->dtmodel->siswa($kelas_id));
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_siswa',$data);
 			$this->load->view('footer');
 	}
 	public function teachertentang($kelas_id){
-			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id));
+			$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id),
+						  'posting_tugas' => $this->dtmodel->show_posting_tugas($_SESSION['username'],$kelas_id));
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_tentang',$data);
 			$this->load->view('footer');	
 	}
 	public function teacherdetail(){
-			$data = new stdClass();
+			$data = new stdClass();	
 			$data->error = '';
 			$this->load->view('user/dashboard/teacher_nav');
 			$this->load->view('user/dashboard/teacher_detail',$data);
 			$this->load->view('footer');		
 	}
-
+	
 }
