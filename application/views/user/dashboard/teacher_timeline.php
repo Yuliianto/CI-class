@@ -58,6 +58,10 @@
 	height: 100%;
 	background-color: none;
 }
+.form-control:focus{
+	outline: none;
+	box-shadow: none;
+}
 </style>
 		
 <div class="container">
@@ -92,136 +96,200 @@
 				</div>
 			</div>&nbsp;
 		</div>
+
 		<div class="col-md">
 			<?php
 			foreach ($posting -> result_array() as $p) {
 				$jenis = $p['jenis'];
 				$waktu = $p['waktu'];
-				if ($jenis=='pengumuman') { 
-					foreach ($posting_pengumuman->result_array() as $pp) {
-						if ($p['post_id']==$pp['post_id']) {
-					?>
-					<div class="card" id="panel-pengumuman">
-						<div class=" border-bottom border-primary" style="background: #fff;">
-							<div class="" style="">
-								<div class="d-flex justify-content-start">
-									<div class="p-2 align-items-stretch" style="background: #4F59FF;color: #fff;">
-										<i class="fa fa-bullhorn fa-xs align-middle" style="margin:15px;">&nbsp;</i>
-									</div>
-									<div class="p-2">
-										<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-									</div>
-									<div class="p-2">
-										<span class=""><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
-									</div>
-									<div class="ml-auto p-2 align-self-center">
-										<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card-body">
-								<div class="container">
-									<div class="row">
-										<div class="col-md">
-											<?php echo $pp['pengumuman']; ?>
+				switch ($jenis) {
+					case 'pengumuman':
+								foreach ($posting_pengumuman->result_array() as $pp) {
+									if ($p['post_id']==$pp['post_id']) {
+								?>
+								<div class="card" id="panel-pengumuman">
+									<div class=" border-bottom border-primary" style="background: #fff;">
+										<div class="" style="">
+											<div class="d-flex justify-content-start">
+												<div class="p-2 align-items-stretch" style="background: #4F59FF;color: #fff;">
+													<i class="fa fa-bullhorn fa-xs align-middle" style="margin:15px;">&nbsp;</i>
+												</div>
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="p-2">
+													<span class=""><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
+												</div>
+												<div class="ml-auto p-2 align-self-center">
+													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-						</div>
-						<div class="card-footer" style="background-color: #fff;">
-							<div class="d-flex justify-content-start">
-								<div class="p-2">
-									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-								</div>
-								<div class="p-2">
-									<form class="form-row">
-										<div class="row">
-											<div class="col-auto">
-												<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
-										    </div>
-										    <div class="col-auto">
-										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
-										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-										    </div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				<?php }
-					} }elseif ($jenis='tugas') { 
-						foreach ($posting_tugas->result_array() as $pt) {
-							if ($p['post_id']==$pt['post_id']) {
-					?>
-					<div class="card" id="panel-tugas">
-						<div class=" border-bottom border-primary" style="background: #fff;">
-							<div class="" style="">
-								<div class="d-flex justify-content-start">
-									<div class="p-2 align-items-stretch bg-danger" style="color: #fff;">
-										<i class="fa fa-clipboard fa-xs align-middle" style="margin:15px;">&nbsp;</i>
-									</div>
-									<div class="p-2">
-										<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-									</div>
-									<div class="p-2">
-										<span class="h5"><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
-									</div>
-									<div class="ml-auto p-2 align-self-center">
-										<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card-body">
-								<div class="container">
-									<div class="row">
-										<div class="col-md">
-											<span class="text-muted">batas waktu : <?php echo $pt['batas_waktu']; ?></span><br>
-											<a href="" class="h4"><?php echo $pt['judul']; ?></a>
-											<?php echo $pt['instruksi']; ?>	
-											<?php 
-												foreach ($files as $file ) { ?>
-											<div class="media border bg-light">
-												<div class="col d-flex justify-content-start border-muted border bg-light">
-													<div class="p-2">
-														<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-													</div>
-													<div class="p-2 align-self-center">
-														<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
+									<div class="card-body">
+											<div class="container">
+												<div class="row">
+													<div class="col-md">
+														<?php echo $pp['pengumuman']; ?>
 													</div>
 												</div>
 											</div>
-											<?php	}
-											?>
+									</div>
+									<div class="card-footer" style="background-color: #fff;">
+										<div class="d-flex justify-content-start">
+											<div class="p-2">
+												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+											</div>
+											<div class="p-2">
+												<form class="form-row">
+													<div class="row">
+														<div class="col-auto">
+															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
+													    </div>
+													    <div class="col-auto">
+													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
+													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
+													    </div>
+													</div>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
-						</div>
-						<div class="card-footer" style="background-color: #fff;">
-							<div class="d-flex justify-content-start">
-								<div class="p-2">
-									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
-								</div>
-								<div class="p-2">
-									<form class="form-row">
-										<div class="row">
-											<div class="col-auto">
-												<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
-										    </div>
-										    <div class="col-auto">
-										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
-										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-										    </div>
+							<?php } } 
+						break;
+					case 'tugas':
+									foreach ($posting_tugas->result_array() as $pt) {
+										if ($p['post_id']==$pt['post_id']) {
+								?>
+								<div class="card" id="panel-tugas">
+									<div class=" border-bottom border-primary" style="background: #fff;">
+										<div class="" style="">
+											<div class="d-flex justify-content-start">
+												<div class="p-2 align-items-stretch bg-danger" style="color: #fff;">
+													<i class="fa fa-clipboard fa-xs align-middle" style="margin:15px;">&nbsp;</i>
+												</div>
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="p-2">
+													<span class="h5"><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
+												</div>
+												<div class="ml-auto p-2 align-self-center">
+													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+												</div>
+											</div>
 										</div>
-									</form>
+									</div>
+									<div class="card-body">
+											<div class="container">
+												<div class="row">
+													<div class="col-md">
+														<span class="text-muted">batas waktu : <?php echo $pt['batas_waktu']; ?></span><br>
+														<a href="" class="h4"><?php echo $pt['judul']; ?></a>
+														<?php echo $pt['instruksi']; ?>	
+														<?php 
+															foreach ($files as $file ) { ?>
+														<div class="media border bg-light">
+															<div class="col d-flex justify-content-start border-muted border bg-light">
+																<div class="p-2">
+																	<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+																</div>
+																<div class="p-2 align-self-center">
+																	<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
+																</div>
+															</div>
+														</div>
+														<?php	}
+														?>
+													</div>
+												</div>
+											</div>
+									</div>
+									<div class="card-footer" style="background-color: #fff;">
+										<div class="d-flex justify-content-start">
+											<div class="p-2">
+												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+											</div>
+											<div class="p-2">
+												<form class="form-row">
+													<div class="row">
+														<div class="col-auto">
+															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
+													    </div>
+													    <div class="col-auto">
+													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
+													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
+													    </div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				<?php } }
-						}
+							<?php } }
+						break;
+					case 'kuiz':
+										foreach ($posting_kuiz->result_array() as $pk) { 
+											if ($p['post_id']==$pk['post_id']) {	
+										?>
+								<div class="card" id="panel-kuiz">
+									<div class=" border-bottom border-primary" style="background: #fff;">
+										<div class="" style="">
+											<div class="d-flex justify-content-start">
+												<div class="p-2 align-items-stretch bg-info" style=";color: #fff;">
+													<i class="fa fa-laptop fa-xs align-middle" style="margin:15px;">&nbsp;</i>
+												</div>
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="p-2">
+													<span class=""><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
+												</div>
+												<div class="ml-auto p-2 align-self-center">
+													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-body">
+											<div class="container">
+												<div class="row">
+													<div class="col-md">
+														<?php echo $pk['soal']; ?>
+													</div>
+												</div>
+											</div>
+									</div>
+									<div class="card-footer" style="background-color: #fff;">
+										<div class="d-flex justify-content-start">
+											<div class="p-2">
+												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+											</div>
+											<div class="p-2">
+												<form class="form-row">
+													<div class="row">
+														<div class="col-auto">
+															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
+													    </div>
+													    <div class="col-auto">
+													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
+													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
+													    </div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							<?php } } 
+						break;
+					
+					default:
+						echo "kosong";
+						break;
+				}
+				/*if ($jenis=='pengumuman') { }elseif ($jenis='tugas') {  }elseif($jenis='kuiz'){ }*/
 				echo "&nbsp;";
 			}
 			 ?>
@@ -335,23 +403,21 @@
 <div id="Modal-kuiz" class="modal">
   <!-- Modal Content -->
   <div class="modal-content">
-    <label class="h3">Kuiz 
+    <label class="h3">Kuiz <?= $dt->kelas_id; ?>
         <span class="close close-create btn btn-light">&times;</span></label>
         <?= validation_errors(); ?>
-    <form action="<?= base_url('index.php/web/dashboard'); ?>" method="post">
-      <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="nama" placeholder="Nama kelas">
+    <div>
+      <div class="form-group" >
+        	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="soal" id="soal" placeholder="soal">
+        	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="jawaban" id="jawaban" placeholder="jawaban">
+      		<br>
+	      	<div class="pilihannya"></div>
+	      	<div class="">
+	      		<label class="btn btn-light" id="btn-plus-option">tambah pilihan</label>
+	      	</div>    
+        	<input type="submit" name="submit" class="btn btn-primary" id="buat-kuiz" value="Buat" />  
       </div>
-      <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="section" placeholder="Section">
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="deskripsi" placeholder="Subject">
-      </div>
-      <div class="form-group">      
-        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -368,7 +434,32 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
+
 $(document).ready(function(){
+	$("#btn-plus-option").click(function(){
+		$(function () {
+                $.get("<?= base_url('asset/pil.html'); ?>", function (data) {
+                    $(".pilihannya").append(data);			
+                });
+            });
+	});
+	$("#buat-kuiz").click(function(){
+		$(".pilihan").each(function(i){
+			 $(".pilihan").attr("name","pil[]");
+		});
+		var soal = $("#soal").val();
+		var jawaban = $("#jawaban").val();
+		var pilih = [];
+		pilih = $("").val();
+		$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/create_kuiz'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { soal: soal, jawaban: jawaban }
+			}).done(function( msg ) {
+		    alert( "Data : " + msg );
+		  });
+		location.reload();
+	});
    $(".btn-pengumuman").click(function(){
     	$("#Modal-pengumuman").css("display","block");
     });   

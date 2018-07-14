@@ -33,11 +33,11 @@
   <!-- Navbar brand -->
     <div class="navbar-brand mb-0">
     	<!-- Toggler/collapsibe Button -->
-    	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+    	<span style="font-size:30px;cursor:pointer" class="h6" onclick="openNav()">&#9776; </span>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    <span class="fa fa-ellipsis-v"></span>
 	  </button>
-    	<span class="text-uppercase h5"><?= $dt->kelas; ?></span>
+    	<span class="text-uppercase h4"><?= $dt->kelas; ?></span>
 	</div>
   <!-- Navbar Center -->
   <div class="navbar-nav">

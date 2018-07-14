@@ -165,4 +165,23 @@ class Dtmodel extends CI_Model {
 		$this->db->where(array('nip'=>$nip,'kelas_id'=>$kelas_id));
 		return $this->db->get()->last_row();
 	}
+	public function insert_kuiz($data){
+		$res = $this->db->insert('kuiz',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	public function insert_soal($data){
+		$res = $this->db->insert('soal',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	public function tampil_kuiz($username,$kelas_id){
+		$this->db->select('*');
+		$this->db->from('posting');
+		$this->db->join('kuiz','posting.post_id=kuiz.post_id');
+		$this->db->join('soal','kuiz.kuiz_id=soal.kuiz_id');
+		$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
 }

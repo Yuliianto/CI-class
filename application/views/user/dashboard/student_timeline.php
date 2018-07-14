@@ -105,8 +105,7 @@
 							</div>
 						</div>
 					</div>	
-				<?php }
-					} }elseif ($jenis=="tugas") { 
+				<?php } } }elseif ($jenis=="tugas") { 
 						foreach ($posting_tugas->result_array() as $pt ) {
 							if ($p['post_id']==$pt['post_id']) {
 						
@@ -187,10 +186,86 @@
 							</div>
 						</div>
 					</div>
-				<?php 	}
-						} } echo "&nbsp;";
-			}
-			 ?>
+				<?php } } } elseif($jenis='kuiz'){ 
+							foreach ($posting_kuiz->result_array() as $pk) { 
+								if ($p['post_id']==$pk['post_id']) {	
+							?>
+					<div class="card" id="panel-kuiz">
+						<div class=" border-bottom border-primary" style="background: #fff;">
+							<div class="" style="">
+								<div class="d-flex justify-content-start">
+									<div class="p-2 align-items-stretch bg-info" style=";color: #fff;">
+										<i class="fa fa-laptop fa-xs align-middle" style="margin:15px;">&nbsp;</i>
+									</div>
+									<div class="p-2">
+										<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+									</div>
+									<div class="p-2">
+										<span class=""><?= $dt->nama; ?><br><small class="text-muted"><?php echo $waktu; ?></small></span>
+									</div>
+									<div class="ml-auto p-2 align-self-center">
+										<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+
+								<div class="d-flex justify-content-start">
+									<div class="p-2">
+										<a href="#" class="btn btn-danger btn-sm">KUIZ</a>
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="ml-auto p-2 align-self-center">
+<!-- 										<a href="<?= base_url('index.php/web/detail'); ?>" class="btn btn-light btn-lg">OPEN</a>
+ -->									</div>
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col-md">
+											<?php echo $pk['soal']; ?>
+											<div class="box-jawab">
+												<div class="radio">
+												  <label><input type="radio" name="optradio">&nbsp; Option 1</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" name="optradio">&nbsp; Option 2</label>
+												</div>
+												<div class="radio">
+												  <label><input type="radio" name="optradio">&nbsp; Option 3</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="card-footer" style="background-color: #fff;">
+							<div class="d-flex justify-content-start">
+								<div class="p-2">
+									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+								</div>
+								<div class="p-2">
+									<form class="form-row">
+										<div class="row">
+											<div class="col-auto">
+												<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
+										    </div>
+										    <div class="col-auto">
+										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
+										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
+										    </div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php }	} }
+				echo "&nbsp;";
+			} ?>
 			
 		</div>
 	</div>
