@@ -70,7 +70,7 @@
 		width: 100%;
 		height: 350px;
 		margin-top: 55px;
-		background: url(<?= base_url('asset/images/header-card1.jpg');?>);
+		background: url(<?= base_url('asset/images/header-card2.jpg');?>);
 		color: #fff;
 	}
 	.sidenav {

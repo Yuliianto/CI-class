@@ -98,6 +98,7 @@
 		</div>
 
 		<div class="col-md">
+
 			<?php
 			foreach ($posting -> result_array() as $p) {
 				$jenis = $p['jenis'];
@@ -257,6 +258,15 @@
 												<div class="row">
 													<div class="col-md">
 														<?php echo $pk['soal']; ?>
+														<p>
+															<?php 
+															foreach ($kuiz_pil->result_array() as $value) { 
+																if ($pk['soal_id']==$value['soal_id']) { ?>
+																<div class="radio">
+																  <label><input type="radio" disabled name="optradio">&nbsp; <?= $value['pilih']; ?></label>
+																</div>
+															<?php } } ?>
+														</p>
 													</div>
 												</div>
 											</div>
@@ -413,9 +423,10 @@
       		<br>
 	      	<div class="pilihannya"></div>
 	      	<div class="">
-	      		<label class="btn btn-light" id="btn-plus-option">tambah pilihan</label>
-	      	</div>    
-        	<input type="submit" name="submit" class="btn btn-primary" id="buat-kuiz" value="Buat" />  
+	      		<label class="btn btn-outline-dark" id="btn-plus-option">tambah pilihan</label>
+	      		<label id="btn-test" class="btn btn-danger">Test</label>    
+        		<label name="submit" class="btn btn-primary" id="buat-kuiz"/>Buat</label> 
+	      	</div> 
       </div>
     </div>
   </div>
@@ -445,16 +456,21 @@ $(document).ready(function(){
 	});
 	$("#buat-kuiz").click(function(){
 		$(".pilihan").each(function(i){
-			 $(".pilihan").attr("name","pil[]");
+			 $(".pilihan").attr("name","pil");
 		});
+
+		var val = new Array();
+				$( "input[name ^=pil" ).each(function(i){
+					val[i] = $(this).val();
+				});
+
 		var soal = $("#soal").val();
 		var jawaban = $("#jawaban").val();
-		var pilih = [];
-		pilih = $("").val();
+
 		$.ajax({
 		  method: "POST",
 		  url: "<?= base_url('index.php/for_ajax/create_kuiz'); ?>/<?= $dt->kelas_id; ?>",
-		  data: { soal: soal, jawaban: jawaban }
+		  data: { soal: soal, jawaban: jawaban,pilih:val}
 			}).done(function( msg ) {
 		    alert( "Data : " + msg );
 		  });

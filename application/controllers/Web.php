@@ -194,7 +194,8 @@ class Web extends CI_Controller {
 						  'posting_pengumuman' => $this->dtmodel->show_posting_pengumuman((string)$nip->nip,$kelas_id),
 						  'files'=>get_filenames($enrol_path),
 						  'posting_tugas' => $this->dtmodel->show_posting_tugas((string)$nip->nip,$kelas_id),
-						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz((string)$nip->nip,$kelas_id));
+						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz((string)$nip->nip,$kelas_id),
+						  'kuiz_pil'=>$this->dtmodel->kuiz_pil((string)$nip->nip,$kelas_id));
 			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_timeline',$data);
 			$this->load->view('footer');
@@ -239,7 +240,8 @@ class Web extends CI_Controller {
 						  'files'=>get_filenames($enrol_path),
 						  'posting_tugas' => $this->dtmodel->show_posting_tugas($_SESSION['username'],$kelas_id),
 						  'last_row'=>$this->dtmodel->post_last_row($_SESSION['username'],$kelas_id),
-						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz($_SESSION['username'],$kelas_id));
+						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz($_SESSION['username'],$kelas_id),
+						  'kuiz_pil'=>$this->dtmodel->kuiz_pil($_SESSION['username'],$kelas_id));
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_timeline',$data);
 			$this->load->view('footer');

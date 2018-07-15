@@ -7,6 +7,7 @@ class For_ajax extends CI_Controller {
 	{
 		$soal = $this->input->post('soal');
 		$jawaban = $this->input->post('jawaban');
+		/*$pilih = $this->input->post('pilih');*/
 		echo "helo saya :".$soal."\n";
 		echo "berada di :".$jawaban."\n";
 		echo "kelas _id :".$kelas_id;
@@ -33,6 +34,7 @@ class For_ajax extends CI_Controller {
 			$do_kuiz  = $this->dtmodel->insert_kuiz($dt_kuiz);
 			if (! $do_kuiz) {
 				echo $this->db->error;
+				echo "error kuiz";
 			}else{
 				// Inisialisasi data yang akan diinput ke table soal
 				$dt_soal  = array("soal_id"=>null,
@@ -43,12 +45,28 @@ class For_ajax extends CI_Controller {
 				$do_soal  = $this->dtmodel->insert_soal($dt_soal);
 				if (! $do_soal) {
 					echo $this->db->error;
+					echo "error soal";
 				}else{
-					echo "berhasil";
+					$pilih = $this->input->post('pilih');
+					foreach ($pilih as $pil => $value) {
+						$dt_pilih = array("pilih_id"=>null,"pilih"=>$value,"soal_id"=>$do_soal);
+						$do_pilih = $this->dtmodel->insert_pilih($dt_pilih);
+					}
+					if (! $do_pilih) {
+						echo $this->db->error;
+						echo "error pilih";
+					}else{
+						echo "berhasil";
+					}
 				}
 			}
 		}
-
+	}
+	public function test(){
+		$pilih = $this->input->post('pilih');
+		foreach ($pilih as $pil => $value) {
+			echo $pil;
+		}
 	}
 	
 }

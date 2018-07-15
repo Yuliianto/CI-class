@@ -227,17 +227,17 @@
 									<div class="row">
 										<div class="col-md">
 											<?php echo $pk['soal']; ?>
-											<div class="box-jawab">
-												<div class="radio">
-												  <label><input type="radio" name="optradio">&nbsp; Option 1</label>
+											<p>
+												<div class="box-jawab">
+													<?php 
+													foreach ($kuiz_pil->result_array() as $value) { 
+														if ($pk['soal_id']==$value['soal_id']) { ?>
+														<div class="radio">
+														  <label><input type="radio"  name="optradio">&nbsp; <?= $value['pilih']; ?></label>
+														</div>
+													<?php } } ?>
 												</div>
-												<div class="radio">
-												  <label><input type="radio" name="optradio">&nbsp; Option 2</label>
-												</div>
-												<div class="radio">
-												  <label><input type="radio" name="optradio">&nbsp; Option 3</label>
-												</div>
-											</div>
+											</p>
 										</div>
 									</div>
 								</div>
