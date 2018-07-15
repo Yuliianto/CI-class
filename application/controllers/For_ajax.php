@@ -62,11 +62,62 @@ class For_ajax extends CI_Controller {
 			}
 		}
 	}
-	public function test(){
-		$pilih = $this->input->post('pilih');
-		foreach ($pilih as $pil => $value) {
-			echo $pil;
+	public function jawab(){
+		$soal_id	 = $this->input->post('soal_id');
+		$pilih_id	 = $this->input->post('pilih_id');
+		$anggota_id	 = $this->input->post('anggota_id');
+
+		$dt_jawab 	 = array("jawab_id"=>null,
+							 "soal_id"=>$soal_id,
+							 "jawaban"=>$pilih_id,
+							 "anggota_id"=>$anggota_id,
+							 "status"=>null);
+		$do_jawab	 = $this->dtmodel->insert_jawab($dt_jawab);
+		if (! $do_jawab) {
+			echo $this->db->error;
+		}else{
+			echo "soal id 	 : ".$soal_id."\n";
+			echo "pilih id 	 : ".$pilih_id."\n";
+			echo "anggota id : ".$anggota_id."\n";
 		}
+	}
+	public function cek_status(){
+		$soal_id	 = $this->input->post('soal_id');
+		$pilih_id	 = $this->input->post('pilih_id');
+		$anggota_id	 = $this->input->post('anggota_id');
+
+		$cek = $this->dtmodel->cek_status($soal_id,$anggota_id);
+		if (! $cek) {
+			echo "false";
+		}else{
+			echo "true";
+		}
+
+			/*echo "soal id 	 : ".$soal_id."\n";
+			echo "pilih id 	 : ".$pilih_id."\n";
+			echo "anggota id : ".$anggota_id."\n";*/
+
+	}
+	public function update(){
+		$soal_id	 = $this->input->post('soal_id');
+		$pilih_id	 = $this->input->post('pilih_id');
+		$anggota_id	 = $this->input->post('anggota_id');
+
+		$dt_update 	 = array("jawaban"=>$pilih_id);
+		$dt_kondisi  = array("soal_id"=>$soal_id,"anggota_id"=>$anggota_id);
+		$do_update	 = $this->dtmodel->update_jawaban($dt_update,$dt_kondisi);
+		if (! $do_update) {
+			echo $this->db->error;
+		}else{
+			echo "updated";
+		}
+	}
+	public function jawaban_saya(){
+		$soal_id	 = $this->input->post('soal_id');
+		$anggota_id	 = $this->input->post('anggota_id');
+
+		$jwb_saya = $this->dtmodel->jawaban_saya($anggota_id,$soal_id);
+		echo (string)$jwb_saya->jawaban;
 	}
 	
 }

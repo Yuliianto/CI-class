@@ -195,7 +195,8 @@ class Web extends CI_Controller {
 						  'files'=>get_filenames($enrol_path),
 						  'posting_tugas' => $this->dtmodel->show_posting_tugas((string)$nip->nip,$kelas_id),
 						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz((string)$nip->nip,$kelas_id),
-						  'kuiz_pil'=>$this->dtmodel->kuiz_pil((string)$nip->nip,$kelas_id));
+						  'kuiz_pil'=>$this->dtmodel->kuiz_pil((string)$nip->nip,$kelas_id),
+						  'anggota'=>$nip);
 			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_timeline',$data);
 			$this->load->view('footer');

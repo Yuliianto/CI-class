@@ -199,4 +199,30 @@ class Dtmodel extends CI_Model {
 		$this->db->order_by('posting.post_id','DESC');
 		return $this->db->get();
 	}
+	public function insert_jawab($data){
+		$res = $this->db->insert('jawaban',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	public function update_jawaban($data,$kondisi){
+		$this->db->where($kondisi);
+		$res = $this->db->update("jawaban",$data);
+		return $res;
+	}
+	public function cek_status($soal_id,$anggota_id){
+		$this->db->select("*");
+		$this->db->from("jawaban");
+		$res = $this->db->where(array("soal_id"=>$soal_id,"anggota_id"=>$anggota_id));
+		if (! $res) {
+			return $this->db->error();
+		}else{
+			return $this->db->get()->row();
+		}
+	}
+	public function jawaban_saya($anggota_id,$soal_id){
+		$this->db->select("*");
+		$this->db->from("jawaban");
+		$this->db->where(array("anggota_id"=>$anggota_id,"soal_id"=>$soal_id));
+		return $this->db->get()->row();
+	}
 }

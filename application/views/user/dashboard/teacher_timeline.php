@@ -263,7 +263,7 @@
 															foreach ($kuiz_pil->result_array() as $value) { 
 																if ($pk['soal_id']==$value['soal_id']) { ?>
 																<div class="radio">
-																  <label><input type="radio" disabled name="optradio">&nbsp; <?= $value['pilih']; ?></label>
+																  <label><input type="radio" disabled name="pijwb" value="<?= $value['pilih']; ?>">&nbsp; <?= $value['pilih']; ?></label>
 																</div>
 															<?php } } ?>
 														</p>

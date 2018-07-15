@@ -233,7 +233,7 @@
 													foreach ($kuiz_pil->result_array() as $value) { 
 														if ($pk['soal_id']==$value['soal_id']) { ?>
 														<div class="radio">
-														  <label><input type="radio"  name="optradio">&nbsp; <?= $value['pilih']; ?></label>
+														  <label><input type="radio"  name="<?= $pk['soal_id']; ?>" value="<?= $value['pilih_id']; ?>">&nbsp; <?= $value['pilih']; ?></label>
 														</div>
 													<?php } } ?>
 												</div>
@@ -263,6 +263,23 @@
 							</div>
 						</div>
 					</div>
+
+											<script type="text/javascript">
+												$(document).ready(function(){
+
+													var anggota  = "<?= $anggota->anggota_id; ?>";
+													var soal 	 = "<?= $pk['soal_id']; ?>";
+													$.ajax({
+													  method: "POST",
+													  url: "<?= base_url('index.php/for_ajax/jawaban_saya'); ?>/<?= $dt->kelas_id; ?>",
+													  data: { soal_id	 : soal,
+													  		  anggota_id : anggota}
+														}).done(function( msg ) {
+													    $("input[value="+msg+"]").attr("checked",true);
+													  });
+													});
+											</script>
+
 				<?php }	} }
 				echo "&nbsp;";
 			} ?>
@@ -271,3 +288,61 @@
 	</div>
 </div>
 <br>
+
+
+<script type="text/javascript">
+	
+	var jawab_id = 0;
+	var anggota  = "<?= $anggota->anggota_id; ?>";
+	var soal 	 = 0;
+	$("input[type=radio]").click(function(){
+		jawab_id = $(this).val();
+		soal 	 = $(this).attr("name");
+
+		//input
+		$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/cek_status'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { soal_id	 : soal,
+		  		  pilih_id	 : jawab_id,
+		  		  anggota_id : anggota}
+			}).done(function( msg ) {
+		     	status = msg;
+		     	if (status=="true") {
+		     		//Update
+					$.ajax({
+					  method: "POST",
+					  url: "<?= base_url('index.php/for_ajax/update'); ?>/<?= $dt->kelas_id; ?>",
+					  data: { soal_id	 : soal,
+					  		  pilih_id	 : jawab_id,
+					  		  anggota_id : anggota}
+						}).done(function( msg ) {
+					    /*alert( "Data : " + msg );*/
+					  });
+		     	}else{
+		     		//Input
+					$.ajax({
+					  method: "POST",
+					  url: "<?= base_url('index.php/for_ajax/jawab'); ?>/<?= $dt->kelas_id; ?>",
+					  data: { soal_id	 : soal,
+					  		  pilih_id	 : jawab_id,
+					  		  anggota_id : anggota}
+						}).done(function( msg ) {
+					    /*alert( "Data : " + msg );*/
+					  });
+		     	}
+		  });
+
+		//input
+		/*$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/jawab'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { soal_id	 : soal,
+		  		  pilih_id	 : jawab_id,
+		  		  anggota_id : anggota}
+			}).done(function( msg ) {
+		    alert( "Data : " + msg );
+		  });*/
+	});
+
+</script>
