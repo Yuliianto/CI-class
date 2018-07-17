@@ -164,7 +164,7 @@
 						$.each(data, function(key, value) {
 							var mockFile = value;
 							me.emit("addedfile", mockFile);
-							me.emit("thumbnail", mockFile, "<?php echo base_url(); ?>uploads/<?= $dt->enrol; ?>/" + value.name);
+							me.emit("thumbnail", mockFile, "<?php echo base_url('uploads/materi/'); ?><?= $dt->enrol; ?>/" + value.name);
 							me.emit("complete", mockFile);
 						});
 					}

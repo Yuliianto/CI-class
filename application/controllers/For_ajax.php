@@ -13,8 +13,6 @@ class For_ajax extends CI_Controller {
 		echo "kelas _id :".$kelas_id;
 	}
 	public function create_kuiz($kelas_id){
-		$soal = $this->input->post('soal');
-		$jawaban = $this->input->post('jawaban');
 
 		//Inisialisasi data yang akan diinput ketable post
 		$dt_post   = array('post_id'=>null,
@@ -36,11 +34,19 @@ class For_ajax extends CI_Controller {
 				echo $this->db->error;
 				echo "error kuiz";
 			}else{
-				// Inisialisasi data yang akan diinput ke table soal
+				echo $do_kuiz;		
+				}
+			}
+	}
+	public function create_soal(){
+		$soal = $this->input->post('soal');
+		$jawaban = $this->input->post('jawaban');
+		$kuiz_id = $this->input->post('kuiz_id');
+		// Inisialisasi data yang akan diinput ke table soal
 				$dt_soal  = array("soal_id"=>null,
 								  "soal" => $soal,
 								  "jawaban" => $jawaban,
-								  "kuiz_id"=>$do_kuiz);
+								  "kuiz_id"=>$kuiz_id);
 				// Insert data ke table soal
 				$do_soal  = $this->dtmodel->insert_soal($dt_soal);
 				if (! $do_soal) {
@@ -59,8 +65,6 @@ class For_ajax extends CI_Controller {
 						echo "berhasil";
 					}
 				}
-			}
-		}
 	}
 	public function jawab(){
 		$soal_id	 = $this->input->post('soal_id');

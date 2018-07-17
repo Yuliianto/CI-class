@@ -105,6 +105,11 @@ class Dtmodel extends CI_Model {
 		$insert_id = $this->db->insert_id();
 		return $insert_id;
 	}
+	public function insert_up($data){
+		$res = $this->db->insert('tugas_upload',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
 	public function do_insert_pengumuman($data){
 		$res = $this->db->insert('pengumuman',$data);
 		return $res;
@@ -184,9 +189,18 @@ class Dtmodel extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('posting');
 		$this->db->join('kuiz','posting.post_id=kuiz.post_id');
-		$this->db->join('soal','kuiz.kuiz_id=soal.kuiz_id');
+		/*$this->db->join('soal','kuiz.kuiz_id=soal.kuiz_id');*/
 		$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
 		$this->db->order_by('posting.post_id','DESC');
+		return $this->db->get();
+	}
+	public function tampil_soal(){
+		$this->db->select('*');
+		$this->db->from('soal');
+		$this->db->join('kuiz','kuiz.kuiz_id=soal.kuiz_id');
+		/*$this->db->join('soal','kuiz.kuiz_id=soal.kuiz_id');*/
+		/*$this->db->where(array('nip'=>$username,'kelas_id'=>$kelas_id));
+		$this->db->order_by('posting.post_id','DESC');*/
 		return $this->db->get();
 	}
 	public function kuiz_pil($username,$kelas_id){

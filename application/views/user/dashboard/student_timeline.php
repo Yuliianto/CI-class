@@ -139,7 +139,7 @@
 									<div class="p-2">
 									</div>
 									<div class="ml-auto p-2 align-self-center">
-										<a href="<?= base_url('index.php/web/detail'); ?>" class="btn btn-light btn-lg">OPEN</a>
+										<label class="btn btn-info btn-lg" id="open-upload" name="<?php echo $pt['post_id']; ?>">upload</label>
 									</div>
 								</div>
 								<div class="container">
@@ -150,17 +150,23 @@
 											<p>
 												<?php echo $pt['instruksi']; ?>
 											</p>
+											<?php 
+												$bhn_path = "./uploads/bahan_tugas/".$dt->enrol."/".$pt['post_id'];
+												$bhn_list = get_filenames($bhn_path);
+												
+												foreach ($bhn_list as $key => $file ) { ?>
 											<div class="media border bg-light">
-												<a href="#" class="pull-left">
-													<img src="sdf.jpg" width="80" class="media-object">
-												</a>
-												<div class="media-body container">
-													<p style="margin-top: 10px;">
-													<a download href="<?= base_url('uploads/jst-jurnal.pdf'); ?>" class="media-heading h5">Kuis.pdf</a><br>
-													<span class="text-muted">PDF</span>
-													</p>
+												<div class="col d-flex justify-content-start border-muted border bg-light">
+													<div class="p-2">
+														<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+													</div>
+													<div class="p-2 align-self-center">
+														<a href="<?php echo '/CI-class/uploads/bahan_tugas/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
+													</div>
 												</div>
 											</div>
+											<?php	}
+											?>
 										</div>
 									</div>
 								</div>
@@ -220,24 +226,23 @@
 									<div class="p-2">
 									</div>
 									<div class="ml-auto p-2 align-self-center">
-<!-- 										<a href="<?= base_url('index.php/web/detail'); ?>" class="btn btn-light btn-lg">OPEN</a>
- -->									</div>
+										<a href="<?= base_url('index.php/web/lembar_kuiz'); ?>/<?= $dt->kelas_id; ?>/<?= $pk['kuiz_id']; ?>" class="btn btn-light btn-lg">OPEN</a>
+ 									</div>
 								</div>
 								<div class="container">
 									<div class="row">
 										<div class="col-md">
-											<?php echo $pk['soal']; ?>
+											<span class="h4">ada kuiz yang harus dikerjakan !!</span>
+											<?php 
+											foreach ($data_soal->result_array() as $s) {
+											if ($pk['kuiz_id']==$s['kuiz_id']) {
+											/*echo $s['soal'];*/ ?>
 											<p>
 												<div class="box-jawab">
-													<?php 
-													foreach ($kuiz_pil->result_array() as $value) { 
-														if ($pk['soal_id']==$value['soal_id']) { ?>
-														<div class="radio">
-														  <label><input type="radio"  name="<?= $pk['soal_id']; ?>" value="<?= $value['pilih_id']; ?>">&nbsp; <?= $value['pilih']; ?></label>
-														</div>
-													<?php } } ?>
+													
 												</div>
 											</p>
+											<?php } } ?>
 										</div>
 									</div>
 								</div>
@@ -245,18 +250,18 @@
 						<div class="card-footer" style="background-color: #fff;">
 							<div class="d-flex justify-content-start">
 								<div class="p-2">
-									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+									<!-- <img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40"> -->
 								</div>
 								<div class="p-2">
 									<form class="form-row">
 										<div class="row">
-											<div class="col-auto">
+											<!-- <div class="col-auto">
 												<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
 										    </div>
 										    <div class="col-auto">
 										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
 										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-										    </div>
+										    </div> -->
 										</div>
 									</form>
 								</div>
@@ -288,10 +293,96 @@
 	</div>
 </div>
 <br>
+<!-- The Modal -->
+<style type="text/css">
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="<?= base_url('asset/vendor/dropzone/dropzone.min.css'); ?>">
+<style>
+
+		.dropzone {
+			background: #fff;
+			border: 2px dashed #ddd;
+			border-radius: 5px;
+		}
+
+		.dz-message {
+			color: #999;
+		}
+
+		.dz-message:hover {
+			color: #464646;
+		}
+
+		.dz-message h3 {
+			font-size: 200%;
+			margin-bottom: 15px;
+		}
+</style>
+
+<div id="Modal-upload" class="modal">
+  <!-- Modal Content -->
+  <div class="modal-content">
+    <label class="h3">Upload tugas anggota <span class="close close-create btn btn-light">&times;</span></label>
+    	
+    <form action="<?= base_url('index.php/web/up_mhs/'.$dt->enrol.'/'.$dt->kelas_id); ?>" method="post">
+    	<div class="form-group">
+      		<input type="hidden" name="dir_up" value="<?php echo './uploads/upload_mhs/'.$dt->enrol."/"; ?>">
+        	<input type="hidden" name="murid_id" value="<?= $anggota->anggota_id; ?>">
+      		<input type="hidden" name="post_id" value="">
+      	</div>
+      	<div class="form-group">
+      		<input type="submit" name="submit" value="upload" class="btn btn-primary">
+      	</div>
+    </form>
+        <?= validation_errors(); ?>
+    
+	<form action="<?= base_url("index.php/control_upload/upload_tugas_murid/") ?><?= $dt->enrol; ?>/" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
+  		<div class="fallback">
+			<input name="file" type="file"  />
+			<input type="submit" name="submit" value="upload">
+		</div>
+		<div class="dz-message">
+			<h3>Drop files here</h3> or <strong>click</strong> to upload
+		</div>
+	</form>
+  </div>
+</div>
+<script type="text/javascript">
+	var dir_up = $("input[name=dir_up]");
+	$("#open-upload").click(function(){
+		$("input[name=post_id]").val($(this).attr("name"));
+		$("input[name=dir_up]").val(dir_up.val()+$(this).attr("name"));
+		$("#Modal-upload").css("display","block");
+	});
+   $('.close').click(function(){
+   		$('.modal').css('display','none');
+   });
+</script>
 
 <script type="text/javascript">
-	
 	var jawab_id = 0;
 	var anggota  = "<?= $anggota->anggota_id; ?>";
 	var soal 	 = 0;
@@ -344,5 +435,42 @@
 		    alert( "Data : " + msg );
 		  });*/
 	});
+</script>
 
+
+<script type="text/javascript" src="<?= base_url('asset/vendor/dropzone/dropzone.min.js'); ?>"></script>
+<script type="text/javascript">
+		Dropzone.autoDiscover = false;
+		var myDropzone = new Dropzone("#my-dropzone", {
+			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+			addRemoveLinks: true,
+			removedfile: function(file) {
+				var name = file.name;
+
+				$.ajax({
+					type: "post",
+					url: "<?= base_url("index.php/control_upload/remove_tugas_dosen/")?><?= $dt->enrol; ?>/<?= $last_row->post_id+1; ?>",
+					data: { file: name },
+					dataType: 'html'
+				});
+
+				// remove the thumbnail
+				var previewElement;
+				return (previewElement = file.previewElement) != null ? (previewElement.parentNode.removeChild(file.previewElement)) : (void 0);
+			},
+			init: function() {
+				var me = this;
+				$.get("<?= base_url("index.php/control_upload/list_files_tugas_dosen/") ?><?= $dt->enrol; ?>/<?= $last_row->post_id+1; ?>", function(data) {
+					// if any files already in server show all here
+					if (data.length > 0) {
+						$.each(data, function(key, value) {
+							var mockFile = value;
+							me.emit("addedfile", mockFile);
+							me.emit("thumbnail", mockFile, "<?php echo base_url(); ?>uploads/<?= $dt->enrol; ?>/<?= $last_row->post_id+1; ?>/" + value.name);
+							me.emit("complete", mockFile);
+						});
+					}
+				});
+			}
+		});
 </script>

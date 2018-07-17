@@ -190,14 +190,17 @@
 														<a href="" class="h4"><?php echo $pt['judul']; ?></a>
 														<?php echo $pt['instruksi']; ?>	
 														<?php 
-															foreach ($files as $file ) { ?>
+															$bhn_path = "./uploads/bahan_tugas/".$dt->enrol."/".$pt['post_id'];
+															$bhn_list = get_filenames($bhn_path);
+															
+															foreach ($bhn_list as $key => $file ) { ?>
 														<div class="media border bg-light">
 															<div class="col d-flex justify-content-start border-muted border bg-light">
 																<div class="p-2">
 																	<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 																</div>
 																<div class="p-2 align-self-center">
-																	<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
+																	<a href="<?php echo '/CI-class/uploads/bahan_tugas/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
 																</div>
 															</div>
 														</div>
@@ -257,16 +260,19 @@
 											<div class="container">
 												<div class="row">
 													<div class="col-md">
-														<?php echo $pk['soal']; ?>
+														<?php foreach ($data_soal->result_array() as $s) {
+															if ($pk['kuiz_id']==$s['kuiz_id']) {
+														  echo $s['soal']; ?>
 														<p>
 															<?php 
 															foreach ($kuiz_pil->result_array() as $value) { 
-																if ($pk['soal_id']==$value['soal_id']) { ?>
+																if ($s['soal_id']==$value['soal_id']) { ?>
 																<div class="radio">
-																  <label><input type="radio" disabled name="pijwb" value="<?= $value['pilih']; ?>">&nbsp; <?= $value['pilih']; ?></label>
+																  <label><input type="radio" disabled name="pijwb" value="<?= $value['pilih']; ?>">&nbsp; <?= $value['pilih']; ?></label> 
 																</div>
 															<?php } } ?>
 														</p>
+														<?php } } ?>
 													</div>
 												</div>
 											</div>
@@ -311,7 +317,6 @@
 
 <!-- The Modal -->
 <style type="text/css">
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -335,7 +340,6 @@
     border: 1px solid #888;
     width: 60%;
 }
-
 </style>
 <link rel="stylesheet" type="text/css" href="<?= base_url('asset/vendor/dropzone/dropzone.min.css'); ?>">
 <style>
@@ -380,9 +384,15 @@
   <!-- Modal Content -->
   <div class="modal-content">
     <label class="h3">Tugas 
-        <span class="close close-create btn btn-light">&times;</span></label>
+        <span class="close close-create btn btn-light">&times;</span>
+    </label>
+        <br>
         <?= validation_errors(); ?>
     <form action="<?= base_url('index.php/web/post_tugas/'.$dt->kelas_id); ?>" method="post">
+      <div class="form-group">
+      	<input type="hidden" name="enrol" value="<?php echo $dt->enrol; ?>">
+        <input type="hidden" name="path_materi" value="<?php echo $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/bahan_tugas/'.$dt->enrol."/"; ?>">
+      </div>
       <div class="form-group">
         <input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="judul" placeholder="judul">
       </div>
@@ -397,35 +407,50 @@
       </div>
       <div class="form-group">      
         <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
+      	<label id="btn-upload-file" class="btn btn-info btn-sm">upload file</label> 
       </div>
     </form>
-	<form action="<?= base_url("index.php/control_upload/upload_tugas_dosen/") ?><?= $dt->enrol; ?>/<?= $last_row->post_id+1; ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
-  		<div class="fallback">
-			<input name="file" type="file"  />
-			<input type="submit" name="submit" value="upload">
-		</div>
-		<div class="dz-message">
-			<h3>Drop files here</h3> or <strong>click</strong> to upload
-		</div>
-	</form>
+    
+		<div class="modal" id="modal-upload">
+			<script type="text/javascript">
+				/*var path = $("input[name=path_materi]").val();
+				alert(path);*/
+			</script>
+			<div class="modal-content">
+		    	<label class="h3">Upload 
+		        	<span class="close-upload btn btn-light">&times;</span>
+		    	</label>
+		    	<form action="<?= base_url("index.php/control_upload/upload_tugas_dosen/") ?><?= $dt->enrol; ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
+			  		<div class="fallback">
+						<input name="file" type="file"  />
+						<input type="submit" name="submit" value="upload">
+					</div>
+					<div class="dz-message">
+						<h3>Drop files here</h3> or <strong>click</strong> to upload
+					</div>
+				</form>
+			</div>
+	    </div>
+
   </div>
 </div>
 <div id="Modal-kuiz" class="modal">
   <!-- Modal Content -->
   <div class="modal-content">
-    <label class="h3">Kuiz <?= $dt->kelas_id; ?>
+    <label class="h3">Kuiz &nbsp;<button id="mulai" class="btn btn-danger btn-sm">mulai</button><label id="no-kuiz"></label>
         <span class="close close-create btn btn-light">&times;</span></label>
         <?= validation_errors(); ?>
     <div>
       <div class="form-group" >
         	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="soal" id="soal" placeholder="soal">
-        	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="jawaban" id="jawaban" placeholder="jawaban">
+        	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="jawaban" id="jawaban" placeholder="kunci">
       		<br>
 	      	<div class="pilihannya"></div>
 	      	<div class="">
 	      		<label class="btn btn-outline-dark" id="btn-plus-option">tambah pilihan</label>
-	      		<label id="btn-test" class="btn btn-danger">Test</label>    
-        		<label name="submit" class="btn btn-primary" id="buat-kuiz"/>Buat</label> 
+	      		<!-- <label id="btn-test" class="btn btn-danger">Test</label>   -->  
+        		<label name="submit" class="btn btn-primary" id="buat-kuiz"/>Buat</label>
+        		<label name="submit" class="btn btn-primary" id="selesai"/>selesai</label> 
 	      	</div> 
       </div>
     </div>
@@ -443,6 +468,9 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
+$("#selesai").click(function(){
+	location.reload();
+});
 </script>
 <script type="text/javascript">
 
@@ -453,6 +481,16 @@ $(document).ready(function(){
                     $(".pilihannya").append(data);			
                 });
             });
+	});
+	$("#mulai").click(function(){
+		$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/create_kuiz'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { soal: "", jawaban: "",pilih:""}
+			}).done(function( msg ) {
+		    $("#no-kuiz").text(msg);
+		  });
+		$(this).attr("disabled",true);
 	});
 	$("#buat-kuiz").click(function(){
 		$(".pilihan").each(function(i){
@@ -466,15 +504,16 @@ $(document).ready(function(){
 
 		var soal = $("#soal").val();
 		var jawaban = $("#jawaban").val();
+		var kuiz_id = $("#no-kuiz").text();
 
 		$.ajax({
 		  method: "POST",
-		  url: "<?= base_url('index.php/for_ajax/create_kuiz'); ?>/<?= $dt->kelas_id; ?>",
-		  data: { soal: soal, jawaban: jawaban,pilih:val}
+		  url: "<?= base_url('index.php/for_ajax/create_soal'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { soal: soal, jawaban: jawaban,pilih:val,kuiz_id:kuiz_id}
 			}).done(function( msg ) {
 		    alert( "Data : " + msg );
 		  });
-		location.reload();
+		$("#soal","#jawaban").val(null);
 	});
    $(".btn-pengumuman").click(function(){
     	$("#Modal-pengumuman").css("display","block");
@@ -484,6 +523,9 @@ $(document).ready(function(){
     });   
    $(".btn-kuiz").click(function(){
     	$("#Modal-kuiz").css("display","block");
+    });   
+   $("#btn-upload-file").click(function(){
+    	$("#modal-upload").css("display","block");
     }); 
    $('.btn-pengumuman , .btn-tugas , .btn-kuiz').mouseover(function(){
    		$('.kotak').css('background-color','rgba(0,0,0,0.4)');
@@ -495,6 +537,9 @@ $(document).ready(function(){
    $('.close').click(function(){
    		$('.modal').css('display','none');
    });
+   $('.close-upload').click(function(){
+   		$('#modal-upload').css('display','none');
+   });
 });
 </script>
 
@@ -505,7 +550,6 @@ $(document).ready(function(){
 
 
 <script type="text/javascript" src="<?= base_url('asset/vendor/dropzone/dropzone.min.js'); ?>"></script>
-
 <script type="text/javascript">
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
