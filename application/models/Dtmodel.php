@@ -239,4 +239,9 @@ class Dtmodel extends CI_Model {
 		$this->db->where(array("anggota_id"=>$anggota_id,"soal_id"=>$soal_id));
 		return $this->db->get()->row();
 	}
+	public function hapus_posting($id){
+		$this->db->where("post_id",$id);
+		$res = $this->db->delete("posting");
+		return $res;
+	}
 }

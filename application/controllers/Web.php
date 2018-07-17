@@ -327,7 +327,7 @@ class Web extends CI_Controller {
 						   'murid_id'=>$murid_id,
 						   'post_id'=>$post_id);
 		$do_up  = $this->dtmodel->insert_up($dt_up);
-			$new_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/".$post_id;
+			$new_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/".$post_id.$do_up;
 			rename($old_dir, $new_dir);
 			if ($do_up) {
 				header("location:".base_url('index.php/web/timeline/'.$kelas_id));
@@ -355,5 +355,15 @@ class Web extends CI_Controller {
 			$this->load->view('user/dashboard/teacher_detail',$data);
 			$this->load->view('footer');		
 	}
-	
+	public function hapus_posting($id_posting,$enrol,$kelas_id){
+			echo "posting id : ".$id_posting."\n<br>";
+			echo "enrol 	 : ".$enrol;
+
+			$do_hapus = $this->dtmodel->hapus_posting($id_posting);
+			if (! $do_hapus) {
+				echo $this->dtmodel->error();
+			}else{
+				header("location:".base_url('index.php/web/teachertimeline/'.$kelas_id));
+			}
+	}
 }

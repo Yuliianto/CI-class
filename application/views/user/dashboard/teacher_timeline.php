@@ -123,6 +123,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>
@@ -178,6 +179,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>
@@ -252,6 +254,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
+													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>

@@ -116,7 +116,7 @@
 	<br>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="<?= base_url('index.php/web'); ?>"><span class="fa fa-home fa-lg">&nbsp;</span> Kelas</a>
-  <a href="#"><span class="fa fa-calendar fa-lg">&nbsp;</span> Kalender</a>
+  <!-- <a href="#"><span class="fa fa-calendar fa-lg">&nbsp;</span> Kalender</a> -->
 </div>
 <script>
 function openNav() {
