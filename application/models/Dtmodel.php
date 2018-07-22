@@ -223,6 +223,11 @@ class Dtmodel extends CI_Model {
 		$res = $this->db->update("jawaban",$data);
 		return $res;
 	}
+	public function update_deskrip($data,$kondisi){
+		$this->db->where($kondisi);
+		$res = $this->db->update("kuiz",$data);
+		return $res;
+	}
 	public function cek_status($soal_id,$anggota_id){
 		$this->db->select("*");
 		$this->db->from("jawaban");
@@ -242,6 +247,45 @@ class Dtmodel extends CI_Model {
 	public function hapus_posting($id){
 		$this->db->where("post_id",$id);
 		$res = $this->db->delete("posting");
+		return $res;
+	}
+	public function cek_upload(){
+		$this->db->select('*');
+		$this->db->from("tugas_upload");
+		return $this->db->get();
+	}
+	public function cek_tugas($post_id){
+		$this->db->select('*');
+		$this->db->from("tugas_upload");
+		$this->db->join("anggota","anggota.anggota_id=tugas_upload.murid_id");
+		$this->db->join("mahasiswa","mahasiswa.nim=anggota.nim");
+		$this->db->where(array("post_id" => $post_id));
+		return $this->db->get();
+	}
+	public function cek_jwb_kuiz($kuiz_id){
+		$this->db->select('*');
+		$this->db->from("jawaban");
+		$this->db->join("soal","soal.soal_id = jawaban.soal_id");
+		// $this->db->join("jawaban","soal.soal_id = jawaban.soal_id");
+		// $this->db->join("pilihan","jawaban.jawaban = pilihan.pilih");
+		$this->db->where(array("soal.kuiz_id" => $kuiz_id));
+		return $this->db->get();
+	}
+	public function return_soal($kuiz_id){
+		$this->db->select('*');
+		$this->db->from('soal');
+		$this->db->join('kuiz','kuiz.kuiz_id=soal.kuiz_id');
+		$this->db->where(array("soal.kuiz_id"=>$kuiz_id));
+		return $this->db->get();
+	}
+	public function return_pilihan(){
+		$this->db->select("*");
+		$this->db->from("pilihan");
+		return $this->db->get();
+	}
+	public function update_kunci($data,$kondisi){
+		$this->db->where($kondisi);
+		$res = $this->db->update("soal",$data);
 		return $res;
 	}
 }

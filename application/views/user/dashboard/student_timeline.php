@@ -39,9 +39,9 @@
 					<div class="card rounded-0" style="background-color: #E3EBF9;">
 						<div class="card-body">
 							<div class="card-title">
-								<span class="text-uppercase font-weight-normal">Topik</span>
+								<span class="text-uppercase font-weight-normal">Enrol</span>
 							</div>
-							<p class="font-weight-light text-muted">-</p>
+							<p class="font-weight-light text-muted"><?= $dt->enrol; ?></p>
 						</div>
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 									</div>
 								</div>
 						</div>
-						<div class="card-footer" style="background-color: #fff;">
+						<!-- <div class="card-footer" style="background-color: #fff;">
 							<div class="d-flex justify-content-start">
 								<div class="p-2">
 									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -103,7 +103,7 @@
 									</form>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>	
 				<?php } } }elseif ($jenis=="tugas") { 
 						foreach ($posting_tugas->result_array() as $pt ) {
@@ -124,7 +124,15 @@
 										<span class=""><?= $dt->nama; ?><br><small class="text-muted"><?php echo $p['waktu']; ?></small></span>
 									</div>
 									<div class="ml-auto p-2 align-self-center">
-										<span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span>
+										<?php 
+										foreach ($cek_upload->result_array() as $cekup) {
+											if ($p['post_id']==$cekup['post_id']&&$cekup['murid_id']==$anggota->anggota_id) { ?>
+										<span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>Telah dikerjakan</span>
+										<?php	} else{ ?>
+										<!-- <span class="text-uppercase" style="color: #DC3545;"><i class="fa fa-exclamation fa-lg">&nbsp;</i>Belum dikerjakan</span> -->
+										<?php } }
+										 ?>
+										
 									</div>
 								</div>
 							</div>
@@ -158,7 +166,7 @@
 											<div class="media border bg-light">
 												<div class="col d-flex justify-content-start border-muted border bg-light">
 													<div class="p-2">
-														<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+														<img class="d-inline" src="<?= base_url('asset/images/file.png'); ?>" alt="avatar-dosen" width="40">
 													</div>
 													<div class="p-2 align-self-center">
 														<a href="<?php echo '/CI-class/uploads/bahan_tugas/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
@@ -171,7 +179,7 @@
 									</div>
 								</div>
 						</div>
-						<div class="card-footer" style="background-color: #fff;">
+						<!-- <div class="card-footer" style="background-color: #fff;">
 							<div class="d-flex justify-content-start">
 								<div class="p-2">
 									<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -190,7 +198,7 @@
 									</form>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				<?php } } } elseif($jenis='kuiz'){ 
 							foreach ($posting_kuiz->result_array() as $pk) { 
@@ -232,7 +240,7 @@
 								<div class="container">
 									<div class="row">
 										<div class="col-md">
-											<span class="h4">ada kuiz yang harus dikerjakan !!</span>
+											<span class="h4"><?= $pk['deskrip']; ?></span>
 											<?php 
 											foreach ($data_soal->result_array() as $s) {
 											if ($pk['kuiz_id']==$s['kuiz_id']) {
@@ -247,26 +255,26 @@
 									</div>
 								</div>
 						</div>
-						<div class="card-footer" style="background-color: #fff;">
+						<!-- <div class="card-footer" style="background-color: #fff;">
 							<div class="d-flex justify-content-start">
 								<div class="p-2">
-									<!-- <img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40"> -->
+									 <img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40"> 
 								</div>
 								<div class="p-2">
 									<form class="form-row">
 										<div class="row">
-											<!-- <div class="col-auto">
+											<div class="col-auto">
 												<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
 										    </div>
 										    <div class="col-auto">
 										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
 										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-										    </div> -->
+										    </div>
 										</div>
 									</form>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 
 											<script type="text/javascript">

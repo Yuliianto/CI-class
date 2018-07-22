@@ -161,8 +161,10 @@ class Web extends CI_Controller {
 			if ($this->dtmodel->create_user($dt)) {
 				
 				// user creation ok
-				$this->load->view('register/register_success', $data);
-				$this->load->view('footer');
+
+				header("location:".base_url('index.php/'));
+				// $this->load->view('register/register_success', $data);
+				// $this->load->view('footer');
 				
 			} else {
 				
@@ -197,7 +199,8 @@ class Web extends CI_Controller {
 						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz((string)$nip->nip,$kelas_id),
 						  'kuiz_pil'=>$this->dtmodel->kuiz_pil((string)$nip->nip,$kelas_id),
 						  'anggota'=>$nip,
-						  'data_soal'=>$this->dtmodel->tampil_soal());
+						  'data_soal'=>$this->dtmodel->tampil_soal(),
+						  'cek_upload'=>$this->dtmodel->cek_upload());
 			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_timeline',$data);
 			$this->load->view('footer');
@@ -220,6 +223,7 @@ class Web extends CI_Controller {
 			$this->load->view('user/dashboard/lembar_kuiz',$data);
 			$this->load->view('footer');
 	}
+
 	public function siswa($kelas_id){
 		
 			$data = array('dt' => $this->dtmodel->anggota($kelas_id,$_SESSION['username']),
@@ -292,7 +296,7 @@ class Web extends CI_Controller {
 		$enrol = $this->input->post('enrol');
 		$old_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/bahan_tugas/'.$enrol."/"."temp_name"."/";
 		$dt_post   = array('post_id'=>null,
-						   'waktu'=>date('Y-m-d H:m:s'),
+						   'waktu'=>date('Y-m-d H:i:s'),
 						   'nip'=>$_SESSION['username'],
 						   'kelas_id'=>$kelas_id,
 						   'jenis'=>'tugas');
@@ -304,7 +308,7 @@ class Web extends CI_Controller {
 			$dt_tugas = array('tugas_id'=>null,
 							 'judul' => $this->input->post('judul'),
 							 'instruksi' => $this->input->post('instruksi'),
-							 'batas_waktu'=>$this->input->post('batas_waktu'),
+							 'batas_waktu'=>$this->input->post('batas_waktu')." ".date("H:i:s"),
 							 'topik_id'=>null,
 							 'materi'=>$this->input->post('path_materi').$do_posti,
 							 'post_id'=>$do_posti);
@@ -316,6 +320,29 @@ class Web extends CI_Controller {
 			}
 		}
 	}
+	public function lembar_tugas($post_id,$kelas_id){
+		$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id),
+					  "cek_tugas"=>$this->dtmodel->cek_tugas($post_id));
+		$cek= $this->dtmodel->cek_tugas($post_id);
+		$this->load->helper("file");
+		/*foreach ($cek->result_array() as $up) {
+			echo $up['nama'];
+			$files = get_filenames($up['dir_upload']);
+			print_r($files);
+		}*/
+			$this->load->view('user/dashboard/teacher_nav',$data);
+			$this->load->view('user/dashboard/lembar_tugas',$data);
+			$this->load->view('footer');
+	}
+
+	public function scoring($kuiz_id,$kelas_id){
+		$data = array('cek_jwb_kuiz' => $this->dtmodel->cek_jwb_kuiz($kuiz_id),
+					  'dt' => $this->dtmodel->kelas_dosen($kelas_id));
+		$cek= $this->dtmodel->cek_jwb_kuiz($kuiz_id);
+			$this->load->view('user/dashboard/teacher_nav',$data);
+			$this->load->view('user/dashboard/scoring',$data);
+			$this->load->view('footer');
+	}
 
 	public function up_mhs($enrol,$kelas_id){
 		$dir_up = $this->input->post('dir_up');
@@ -323,11 +350,11 @@ class Web extends CI_Controller {
 		$post_id = $this->input->post('post_id');
 		$old_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/"."temp_name"."/";
 		$dt_up   = 	 array('upload_id'=>null,
-						   'dir_upload'=>$dir_up."/".$post_id,
+						   'dir_upload'=>$dir_up.$murid_id,
 						   'murid_id'=>$murid_id,
 						   'post_id'=>$post_id);
 		$do_up  = $this->dtmodel->insert_up($dt_up);
-			$new_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/".$post_id.$do_up;
+			$new_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/".$post_id.$murid_id;
 			rename($old_dir, $new_dir);
 			if ($do_up) {
 				header("location:".base_url('index.php/web/timeline/'.$kelas_id));
@@ -366,4 +393,5 @@ class Web extends CI_Controller {
 				header("location:".base_url('index.php/web/teachertimeline/'.$kelas_id));
 			}
 	}
+
 }

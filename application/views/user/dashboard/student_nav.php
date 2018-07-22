@@ -49,7 +49,7 @@
   			<a class="nav-link" href="<?= base_url('index.php/web/siswa/');?><?= $dt->kelas_id; ?>">SISWA&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/tentang/');?><?= $dt->kelas_id; ?>/<?= $dt->enrol; ?>">TENTANG&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/tentang/');?><?= $dt->kelas_id; ?>/<?= $dt->enrol; ?>">MATERI&nbsp;</a>
   		</li>
   	</ul>
   </div>

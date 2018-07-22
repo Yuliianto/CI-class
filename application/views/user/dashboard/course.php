@@ -34,8 +34,8 @@
 						      <p class="card-text"><?= $i['deskripsi']; ?></p>
 						    </div>
 						    <div class="card-footer bg-dark rounded-0">
-						      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
-						      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
+						      <!-- <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
+						      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a> -->
 						    </div>
 						</div><br>
 					</div> 
@@ -57,8 +57,8 @@
 							      <p class="card-text"><?= $i['deskripsi']; ?></p>
 							    </div>
 							    <div class="card-footer bg-dark rounded-0">
-							      <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
-							      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a>
+							      <!-- <a href="#" class="card-link pull-right"><i class="fa fa-folder"></i>&nbsp;&nbsp;</a>
+							      <a href="#" class="card-link pull-right"><i class="fa fa-file"></i>&nbsp;&nbsp;</a> -->
 							    </div>
 							</div><br>
 						</div> 

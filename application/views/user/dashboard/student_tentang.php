@@ -42,9 +42,9 @@
 					<div class="card rounded-0" style="background-color: #E3EBF9;">
 						<div class="card-body">
 							<div class="card-title">
-								<span class="text-uppercase font-weight-normal">Topik</span>
+								<span class="text-uppercase font-weight-normal">Enrol</span>
 							</div>
-							<p class="font-weight-light text-muted">-</p>
+							<p class="font-weight-light text-muted"><?= $dt->enrol; ?></p>
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 				foreach ($bhn_list as $key => $file ) {?>
 				<div class="d-flex justify-content-start border-muted border bg-light">
 					<div class="p-2">
-						<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+						<img class="d-inline" src="<?= base_url('asset/images/file.png'); ?>" alt="avatar-dosen" width="40">
 					</div>
 					<div class="p-2 align-self-center">
 						<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 

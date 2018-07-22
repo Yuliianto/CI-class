@@ -26,15 +26,17 @@ class For_ajax extends CI_Controller {
 			echo $this->db->error;
 		}else{
 			// Inisialisasi data yang akan diinput ketable kuiz
+			$deskrip = $this->input->post('deskrip');
 			$dt_kuiz  = array("kuiz_id"=>null,
-							  "post_id"=>$do_post);
+							  "post_id"=>$do_post,
+							  "deskrip"=>$deskrip);
 			//Insert data ke table kuiz dengan model
 			$do_kuiz  = $this->dtmodel->insert_kuiz($dt_kuiz);
 			if (! $do_kuiz) {
 				echo $this->db->error;
 				echo "error kuiz";
 			}else{
-				echo $do_kuiz;		
+				echo "<input type='hidden' name='post_id' value=$do_post><input type='hidden' name='kuiz_id' value=$do_kuiz> ";		
 				}
 			}
 	}
@@ -42,10 +44,14 @@ class For_ajax extends CI_Controller {
 		$soal = $this->input->post('soal');
 		$jawaban = $this->input->post('jawaban');
 		$kuiz_id = $this->input->post('kuiz_id');
+
+		// echo "soal : ".$soal."\n";
+		// echo "jwb  : ".$jawaban."\n";
+		// echo "k_id : ".$kuiz_id."\n";
+
 		// Inisialisasi data yang akan diinput ke table soal
 				$dt_soal  = array("soal_id"=>null,
 								  "soal" => $soal,
-								  "jawaban" => $jawaban,
 								  "kuiz_id"=>$kuiz_id);
 				// Insert data ke table soal
 				$do_soal  = $this->dtmodel->insert_soal($dt_soal);
@@ -62,7 +68,23 @@ class For_ajax extends CI_Controller {
 						echo $this->db->error;
 						echo "error pilih";
 					}else{
-						echo "berhasil";
+						$return_soal = $this->dtmodel->return_soal($kuiz_id);
+						$return_pilihan = $this->dtmodel->return_pilihan();
+						$data = array("return_soal"=>$return_soal,"return_pilihan"=>$return_pilihan);
+
+						$this->load->view('user/dashboard/return_soal',$data);
+						// foreach ($return_soal->result_array() as $s) {
+						// 	echo $s['soal']."<br>";
+						// 	foreach ($return_pilihan->result_array() as $p) {
+						// 		if ($s['soal_id']==$p['soal_id']) {
+						// 			echo "<div class=radio><label>";
+						// 			echo "<input id=".$p['pilih_id']." type=radio value=".$p['pilih_id']." name=".$s['soal_id'].">&nbsp;".$p['pilih'];
+						// 			echo "</label></div>";
+
+						// 			$this->load->view("");
+						// 		}
+						// 	}
+						// }
 					}
 				}
 	}
@@ -116,12 +138,48 @@ class For_ajax extends CI_Controller {
 			echo "updated";
 		}
 	}
+	public function update_deskrip($kelas_id){
+		$deskrip	 = $this->input->post('deskrip');
+		$kuiz_id	 = $this->input->post('kuiz_id');
+
+		$dt_update 	 = array("deskrip"=>$deskrip);
+		$dt_kondisi  = array("kuiz_id"=>$kuiz_id);
+		$do_update	 = $this->dtmodel->update_deskrip($dt_update,$dt_kondisi);
+		if (! $do_update) {
+			echo $this->db->error;
+		}else{
+			echo "updated";
+		}
+	}
 	public function jawaban_saya(){
 		$soal_id	 = $this->input->post('soal_id');
 		$anggota_id	 = $this->input->post('anggota_id');
 
 		$jwb_saya = $this->dtmodel->jawaban_saya($anggota_id,$soal_id);
 		echo (string)$jwb_saya->jawaban;
+	}
+	public function hapus_kuiz($kelas_id){
+		$post_id = $this->input->post('post_id');
+		$do_hapus = $this->dtmodel->hapus_posting($post_id);
+		if (! $do_hapus) {
+			echo "error";
+		}else{
+			echo "berhasil";
+		}
+	}
+	public function update_kunci(){
+		$kunci_id = $this->input->post('kunci');
+		$soal_id  = $this->input->post('soal');
+
+		$data  = array("kunci"=>$kunci_id);
+		$dt_kondisi = array("soal_id"=>$soal_id);
+		$do_up =$this->dtmodel->update_kunci($data,$dt_kondisi);
+		if (! $do_up) {
+			echo "error!";
+		}else{
+			echo "berhasil";
+		}
+		
 	}
 	
 }

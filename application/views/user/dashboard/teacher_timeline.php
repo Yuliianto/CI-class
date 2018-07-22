@@ -7,7 +7,7 @@
 			<div class="col-md text-center">
 				<p><br><br><br>
 					<h3 class=""><?= $dt->kelas; ?></h3>
-					<span class="h4"><?= $dt->enrol; ?></span>
+					<span class="h4"></span>
 					<div class="text-center">
 					  	<img src="<?= base_url('asset/images/owner-male.png'); ?>" class="rounded  mx-auto d-block" alt="iBU uLFI" width="100"><br>
 					  	<h4 class="font-weight-light"><?= $dt->nama;?></h4>
@@ -88,15 +88,14 @@
 					<div class="card rounded-0" style="background-color: #E3EBF9;">
 						<div class="card-body">
 							<div class="card-title">
-								<span class="text-uppercase font-weight-normal">Topik</span>
+								<span class="text-uppercase font-weight-normal">Enrol</span>
 							</div>
-							<p class="font-weight-light text-muted">-</p>
+							<p class="font-weight-light text-muted"><?= $dt->enrol; ?></p>
 						</div>
 					</div>
 				</div>
 			</div>&nbsp;
 		</div>
-
 		<div class="col-md">
 
 			<?php
@@ -137,7 +136,7 @@
 												</div>
 											</div>
 									</div>
-									<div class="card-footer" style="background-color: #fff;">
+									<!-- <div class="card-footer" style="background-color: #fff;">
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -156,7 +155,7 @@
 												</form>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							<?php } } 
 						break;
@@ -185,6 +184,19 @@
 										</div>
 									</div>
 									<div class="card-body">
+
+								<div class="d-flex justify-content-start">
+									<div class="p-2">
+										<!-- <a href="#" class="btn btn-danger btn-sm"></a> -->
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="ml-auto p-2 align-self-center">
+										<a href="<?= base_url('index.php/web/lembar_tugas'); ?>/<?= $p['post_id'].'/'.$dt->kelas_id; ?>" class="btn btn-light btn-lg">OPEN</a>
+ 									</div>
+								</div>
 											<div class="container">
 												<div class="row">
 													<div class="col-md">
@@ -199,7 +211,7 @@
 														<div class="media border bg-light">
 															<div class="col d-flex justify-content-start border-muted border bg-light">
 																<div class="p-2">
-																	<img class="d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+																	<img class="d-inline" src="<?= base_url('asset/images/file.png'); ?>" alt="avatar-dosen" width="40">
 																</div>
 																<div class="p-2 align-self-center">
 																	<a href="<?php echo '/CI-class/uploads/bahan_tugas/'.$dt->enrol.'/'.$pt['post_id'].'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
@@ -212,7 +224,7 @@
 												</div>
 											</div>
 									</div>
-									<div class="card-footer" style="background-color: #fff;">
+									<!-- <div class="card-footer" style="background-color: #fff;">
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -231,7 +243,7 @@
 												</form>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							<?php } }
 						break;
@@ -254,25 +266,39 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
+													<a onclick="confirm('Kuiz akan dihapus')" href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="card-body">
+
+								<div class="d-flex justify-content-start">
+									<div class="p-2">
+										<!-- <a href="#" class="btn btn-danger btn-sm"></a> -->
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="p-2">
+									</div>
+									<div class="ml-auto p-2 align-self-center">
+										 <a href="<?= base_url('index.php/web/scoring'); ?>/<?= $pk['kuiz_id'].'/'.$dt->kelas_id; ?>" class="btn btn-light btn-lg">OPEN</a>
+ 									</div>
+								</div>
 											<div class="container">
 												<div class="row">
 													<div class="col-md">
+														<p><?= $pk['deskrip']; ?></p>
 														<?php foreach ($data_soal->result_array() as $s) {
 															if ($pk['kuiz_id']==$s['kuiz_id']) {
-														  echo $s['soal']; ?>
+														  /*echo $s['soal'];*/ ?>
 														<p>
 															<?php 
 															foreach ($kuiz_pil->result_array() as $value) { 
 																if ($s['soal_id']==$value['soal_id']) { ?>
-																<div class="radio">
+																<!-- <div class="radio">
 																  <label><input type="radio" disabled name="pijwb" value="<?= $value['pilih']; ?>">&nbsp; <?= $value['pilih']; ?></label> 
-																</div>
+																</div> -->
 															<?php } } ?>
 														</p>
 														<?php } } ?>
@@ -280,7 +306,7 @@
 												</div>
 											</div>
 									</div>
-									<div class="card-footer" style="background-color: #fff;">
+									<!-- <div class="card-footer" style="background-color: #fff;">
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -299,7 +325,7 @@
 												</form>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							<?php } } 
 						break;
@@ -440,31 +466,53 @@
 <div id="Modal-kuiz" class="modal">
   <!-- Modal Content -->
   <div class="modal-content">
-    <label class="h3">Kuiz &nbsp;<button id="mulai" class="btn btn-danger btn-sm">mulai</button><label id="no-kuiz"></label>
+    <label class="h3">Kuiz &nbsp;<!-- <button id="mulai" class="btn btn-danger btn-sm">mulai</button> --><label id="no-kuiz"></label>
         <span class="close close-create btn btn-light">&times;</span></label>
         <?= validation_errors(); ?>
     <div>
-      <div class="form-group" >
+    	<div class="hiden-input"></div>
+
+    	<div class="form-group">
+			<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="deskrip" id="deskrip" placeholder="deskrip">
+    	</div>
+    	<div class="return-soal">
+    		
+    	</div>
+      	<div class="form-group" >
         	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="soal" id="soal" placeholder="soal">
-        	<input type="text" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="jawaban" id="jawaban" placeholder="kunci">
       		<br>
 	      	<div class="pilihannya"></div>
 	      	<div class="">
-	      		<label class="btn btn-outline-dark" id="btn-plus-option">tambah pilihan</label>
+	      		<label class="btn btn-outline-dark btn-sm" id="btn-plus-option">tambah pilihan</label>
 	      		<!-- <label id="btn-test" class="btn btn-danger">Test</label>   -->  
-        		<label name="submit" class="btn btn-primary" id="buat-kuiz"/>Buat</label>
+        		<label name="submit" class="btn btn-primary" id="buat-kuiz"/>post soal</label>
         		<label name="submit" class="btn btn-primary" id="selesai"/>selesai</label> 
 	      	</div> 
-      </div>
+      	</div>
     </div>
   </div>
+  <script type="text/javascript">
+ 	// $("input[type=radio]").click(function(){
+ 	// 	alert($(this).val());
+ 	// });
+	$("#Modal-kuiz .close").click(function(){
+		var post_id = $("input[name=post_id]").val();
+		$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/hapus_kuiz'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { post_id:post_id }
+			}).done(function( msg ) {
+		    
+		  });
+	});
+  </script>
 </div>
 
 <div class="">
 	<div class="fixed">
 		<a href="#" class="btn btn-primary btn-round btn-lg btn-pengumuman" data-toggle="tooltip" data-placement="top" title="pengumuman"><span class="fa fa-bullhorn fa-xs"></span></a>
 		<br><a href="#" class="btn btn-danger btn-round btn-lg btn-tugas" data-toggle="tooltip" data-placement="top" title="tugas"><span class="fa fa-clipboard fa-xs"></span></a>
-		<br><a href="#" class="btn btn-info btn-round btn-lg btn-kuiz" data-toggle="tooltip" data-placement="top" title="kuiz"><span class="fa fa-laptop fa-xs"></span></a>
+		<br><a href="#" id="mulai" class="btn btn-info btn-round btn-lg btn-kuiz" data-toggle="tooltip" data-placement="top" title="kuiz"><span class="fa fa-laptop fa-xs"></span></a>
 	</div>
 </div>
 <script>
@@ -472,6 +520,15 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 $("#selesai").click(function(){
+	var deskrip = $("#deskrip").val();
+	var kuiz_id = $("input[name=kuiz_id]").val();
+	$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/update_deskrip'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { deskrip:deskrip, kuiz_id:kuiz_id }
+			}).done(function( msg ) {
+		    
+		  });
 	location.reload();
 });
 </script>
@@ -486,12 +543,13 @@ $(document).ready(function(){
             });
 	});
 	$("#mulai").click(function(){
+		var deskrip = $("#deskrip").val();
 		$.ajax({
 		  method: "POST",
 		  url: "<?= base_url('index.php/for_ajax/create_kuiz'); ?>/<?= $dt->kelas_id; ?>",
-		  data: { soal: "", jawaban: "",pilih:""}
+		  data: { soal: "", jawaban: "",pilih:"",deskrip:deskrip}
 			}).done(function( msg ) {
-		    $("#no-kuiz").text(msg);
+		    $(".hiden-input").html(msg);
 		  });
 		$(this).attr("disabled",true);
 	});
@@ -505,18 +563,21 @@ $(document).ready(function(){
 					val[i] = $(this).val();
 				});
 
-		var soal = $("#soal").val();
-		var jawaban = $("#jawaban").val();
-		var kuiz_id = $("#no-kuiz").text();
-
+		var soal 	= $("#soal").val();
+		// var jawaban = $("#jawaban").val();
+		var kuiz_id = $("input[name=kuiz_id]").val();
+		
 		$.ajax({
 		  method: "POST",
 		  url: "<?= base_url('index.php/for_ajax/create_soal'); ?>/<?= $dt->kelas_id; ?>",
-		  data: { soal: soal, jawaban: jawaban,pilih:val,kuiz_id:kuiz_id}
+		  data: { soal: soal, pilih:val,kuiz_id:kuiz_id}
 			}).done(function( msg ) {
-		    alert( "Data : " + msg );
+		    $(".return-soal").html( msg );
+		    // alert(msg);
+
+			$("#soal , #jawaban").val(null);
+			$(".option").remove();
 		  });
-		$("#soal","#jawaban").val(null);
 	});
    $(".btn-pengumuman").click(function(){
     	$("#Modal-pengumuman").css("display","block");

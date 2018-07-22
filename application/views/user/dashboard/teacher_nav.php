@@ -49,7 +49,7 @@
   			<a class="nav-link" href="<?= base_url('index.php/web/teachersiswa/'.$dt->kelas_id);?>">SISWA&nbsp;</a>
   		</li>
   		<li class="nav-item">
-  			<a class="nav-link" href="<?= base_url('index.php/web/teachertentang/'.$dt->kelas_id);?>">TENTANG&nbsp;</a>
+  			<a class="nav-link" href="<?= base_url('index.php/web/teachertentang/'.$dt->kelas_id);?>">MATERI&nbsp;</a>
   		</li>
   	</ul>
   </div>
@@ -58,7 +58,7 @@
   <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
     <ul class="navbar-nav lead">
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('index.php/web/logout');?>">LOG OUT</a>
+        <a class="nav-link" href="<?= base_url('index.php/web/logout');?>">KELUAR</a>
       </li>
     </ul>
   </div> 

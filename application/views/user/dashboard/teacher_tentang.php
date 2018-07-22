@@ -63,9 +63,9 @@
 					<div class="card rounded-0" style="background-color: #E3EBF9;">
 						<div class="card-body">
 							<div class="card-title">
-								<span class="text-uppercase font-weight-normal">Topik</span>
+								<span class="text-uppercase font-weight-normal">Enrol</span>
 							</div>
-							<p class="font-weight-light text-muted">-</p>
+							<p class="font-weight-light text-muted"><?= $dt->enrol; ?></p>
 						</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 	</div>
 </div>
 				</div>
-				<div class="card-footer" style="background-color: #fff;">
+				<!-- <div class="card-footer" style="background-color: #fff;">
 					<div class="d-flex justify-content-start">
 						<div class="p-2">
 							<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
@@ -128,7 +128,7 @@
 							</form>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
