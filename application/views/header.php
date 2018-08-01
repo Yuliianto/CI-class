@@ -84,6 +84,10 @@
 #myAcount .modal-content{
   width: 70%;
 }
+#myAcount input{
+  outline: none;
+  border: none;
+}
 </style>
 <!-- The Modal -->
 <div id="myAcount" class="modal">
@@ -92,8 +96,49 @@
       <label class="h3">
           Pengaturan akun
           <span class="close close-create btn btn-light">&times;</span>
+          <hr>
       </label>
-        
+      <div class="row">
+        <div class="col-4 text-center">
+          <img src="<?= base_url('asset/images/owner-male.png'); ?>" class="img-thumbnail rounded-circle " style="width:200px;height:200px;">
+
+        </div>
+        <div class="col">
+          <?php $plntxt =$this->encryption->decrypt($dt_user->password); ?>
+          <form method="post" action="<?= base_url('index.php/web/update_profil'); ?>">
+          <input type="hidden" name="id" value="<?= $this->session->user_id; ?>">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Username</td>
+                <td class="text-muted"><input type="hidden" name="username" value="<?= $dt_user->username; ?>"><?= $dt_user->username; ?></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" value="<?= $dt_user->email; ?>" placeholder="<?= $dt_user->email; ?>"></td>
+              </tr>
+              <tr>
+                <td>Nama</td>
+                <td>
+                  <input type="text" name="firstname" value="<?= $dt_user->first_name; ?>" placeholder="<?= $dt_user->first_name; ?>"> <br><br>
+                  <input type="text" name="lastname" value="<?= $dt_user->last_name; ?>" placeholder="<?= $dt_user->last_name; ?>">
+                </td>
+              </tr>
+              <tr>
+                <td>Password</td>
+                <td>
+                  <input type="password" name="old-password" value="<?= $plntxt; ?>" placeholder="password lama"> <br><br>
+                  <input type="password" name="new-password" value="<?= $plntxt; ?>" placeholder="password baru"><br><br>
+                  <input type="password" name="confirm-password" value="<?= $plntxt; ?>" placeholder="confirmasi password">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <input type="submit" name="submit" value="simpan" class="btn btn-primary btn-sm pull-right">
+          </form>
+        </div>
+      </div>
+      
   </div>
 </div>
 

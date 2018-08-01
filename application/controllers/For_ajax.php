@@ -128,8 +128,14 @@ class For_ajax extends CI_Controller {
 		$soal_id	 = $this->input->post('soal_id');
 		$pilih_id	 = $this->input->post('pilih_id');
 		$anggota_id	 = $this->input->post('anggota_id');
+		$kunci 		 = $this->input->post('kunci');
 
-		$dt_update 	 = array("jawaban"=>$pilih_id);
+		if ( !($pilih_id == $kunci)) {
+			$hasil = "salah";
+		}else{
+			$hasil = "benar";
+		}
+		$dt_update 	 = array("jawaban"=>$pilih_id,"status"=>$hasil);
 		$dt_kondisi  = array("soal_id"=>$soal_id,"anggota_id"=>$anggota_id);
 		$do_update	 = $this->dtmodel->update_jawaban($dt_update,$dt_kondisi);
 		if (! $do_update) {
@@ -180,6 +186,71 @@ class For_ajax extends CI_Controller {
 			echo "berhasil";
 		}
 		
+	}
+	public function komentar(){
+		$komentar = $this->input->post('txt_komen');
+		$user_id  = $this->input->post('user_id');
+		$post_id  = $this->input->post('p_id');
+
+		$dt_komen = array("komentar_id"=>null,
+						  "komentar"=>$komentar,
+						  "waktu"=>date('Y-m-j H:i:s'),
+						  "anggota_id"=>$user_id,
+						  "post_id"=>$post_id);
+		$do_komen = $this->dtmodel->insert_komentar($dt_komen);
+		if (! $do_komen) {
+			echo "error";
+		}else{
+			echo "berhasil";
+		}
+	}
+	public function check_email(){
+		$email = $this->input->post('email');
+		$check = $this->dtmodel->check_email($email);
+		if (! $check) {
+			echo "user tidak terdaftar";
+		}else{
+			echo $check->first_name;
+		}
+	}
+	public function kirim_email(){
+		$email=$this->input->post('email');
+		$config = Array(  
+			'protocol' => 'smtp',  
+			'smtp_host' => 'ssl://smtp.googlemail.com',  
+			'smtp_port' => 465,  
+			'smtp_user' => 'alumnistebialmuhsin@gmail.com',
+			'smtp_pass' => 'stebi2018',  
+			'mailtype'  => 'html',  
+			'charset'   => 'iso-8859-1'  
+			);  
+		  
+		$this->email->initialize($config);
+		$this->email->set_newline("\r\n");  
+		$this->email->from('alumnistebialmuhsin@gmail.com', 'Admin Sistem Informasi Alumni STEBI Al-Muhsin');  
+		$this->email->to($email);  
+		$this->email->subject('Permintaan Kata Sandi Baru');
+		$new_password=substr(md5(mt_rand(100000,999999)),0,6);
+		$htmlBody = " 
+		<div style='background:#E7E8EB; width:100%;'>
+			<div style='width:90%;background:#fff;'>
+				<h5>Konfirmasi password<h5>,
+				kami menerima permintaan perubahan password untuk akun e-learning<br>
+				anda. sekaranga password e-learning anda telah diubah:
+				<br><br>
+				password : $new_password <br><br>
+
+				<a href='localhost/CI-class'>login</a>
+			</div>
+		</div>
+		";
+
+		$this->email->message($htmlBody);  
+		if (!$this->email->send()) {  
+			echo $this->email->print_debugger();
+		}else{  
+			echo 'Success, send email to '.$email;  
+		}
 	}
 	
 }

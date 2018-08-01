@@ -62,6 +62,14 @@
 	outline: none;
 	box-shadow: none;
 }
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width:800px) {
+  .modal .modal-content{
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
+}
+
 </style>
 		
 <div class="container">
@@ -136,26 +144,34 @@
 												</div>
 											</div>
 									</div>
-									<!-- <div class="card-footer" style="background-color: #fff;">
+									<div class="card-footer" style="">
+
+										<?php foreach ($dt_komentar->result_array() as $komen) {
+											if ($p['post_id']==$komen['post_id']) { ?>
+											<div class="d-flex justify-content-start" class="comment-list">
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="col" style="">
+													<p style="margin-top:10px;">
+														<strong><?= $komen['email']; ?></strong><br>
+														<?= $komen['komentar']; ?><br><span class="text-muted"><?= $komen['waktu']; ?></span></p>
+												</div>
+											</div>
+										<?php	}	} ?>
+										<hr>
+										<!-- form-komen -->
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 											</div>
-											<div class="p-2">
-												<form class="form-row">
-													<div class="row">
-														<div class="col-auto">
-															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
-													    </div>
-													    <div class="col-auto">
-													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
-													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-													    </div>
-													</div>
-												</form>
+											<div class="col">
+												<div class="form-group">
+													<textarea class="form-control form-comment" placeholder="Tulis komentar.." name="<?= $p['post_id']; ?>"></textarea>
+											    </div>
 											</div>
 										</div>
-									</div> -->
+									</div>
 								</div>
 							<?php } } 
 						break;
@@ -224,26 +240,34 @@
 												</div>
 											</div>
 									</div>
-									<!-- <div class="card-footer" style="background-color: #fff;">
+									<div class="card-footer" style="">
+
+										<?php foreach ($dt_komentar->result_array() as $komen) {
+											if ($p['post_id']==$komen['post_id']) { ?>
+											<div class="d-flex justify-content-start" class="comment-list">
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="col" style="">
+													<p style="margin-top:10px;">
+														<strong><?= $komen['email']; ?></strong><br>
+														<?= $komen['komentar']; ?><br><span class="text-muted"><?= $komen['waktu']; ?></span></p>
+												</div>
+											</div>
+										<?php	}	} ?>
+										<hr>
+										<!-- form-komen -->
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 											</div>
-											<div class="p-2">
-												<form class="form-row">
-													<div class="row">
-														<div class="col-auto">
-															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
-													    </div>
-													    <div class="col-auto">
-													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
-													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-													    </div>
-													</div>
-												</form>
+											<div class="col">
+												<div class="form-group">
+													<textarea class="form-control form-comment" placeholder="Tulis komentar.." name="<?= $p['post_id']; ?>"></textarea>
+											    </div>
 											</div>
 										</div>
-									</div> -->
+									</div>
 								</div>
 							<?php } }
 						break;
@@ -306,26 +330,34 @@
 												</div>
 											</div>
 									</div>
-									<!-- <div class="card-footer" style="background-color: #fff;">
+									<div class="card-footer" style="">
+
+										<?php foreach ($dt_komentar->result_array() as $komen) {
+											if ($p['post_id']==$komen['post_id']) { ?>
+											<div class="d-flex justify-content-start" class="comment-list">
+												<div class="p-2">
+													<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
+												</div>
+												<div class="col" style="">
+													<p style="margin-top:10px;">
+														<strong><?= $komen['email']; ?></strong><br>
+														<?= $komen['komentar']; ?><br><span class="text-muted"><?= $komen['waktu']; ?></span></p>
+												</div>
+											</div>
+										<?php	}	} ?>
+										<hr>
+										<!-- form-komen -->
 										<div class="d-flex justify-content-start">
 											<div class="p-2">
 												<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 											</div>
-											<div class="p-2">
-												<form class="form-row">
-													<div class="row">
-														<div class="col-auto">
-															<textarea class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" style="height: 40px;width: 500px;resize: both;overflow: auto;" placeholder="Tulis komentar.."></textarea>
-													    </div>
-													    <div class="col-auto">
-													    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
-													    	<button class="btn btn-primary" name="btn" value="post">POST</button>
-													    </div>
-													</div>
-												</form>
+											<div class="col">
+												<div class="form-group">
+													<textarea class="form-control form-comment" placeholder="Tulis komentar.." name="<?= $p['post_id']; ?>"></textarea>
+											    </div>
 											</div>
 										</div>
-									</div> -->
+									</div>
 								</div>
 							<?php } } 
 						break;
@@ -604,6 +636,28 @@ $(document).ready(function(){
    $('.close-upload').click(function(){
    		$('#modal-upload').css('display','none');
    });
+
+   // KOMENTAR 
+	var user_id = <?= $_SESSION['user_id']; ?>;
+	$(".form-comment").bind("enterKey",function(e){
+		var txt_komen = $(this).val();
+		var p_id 	  = $(this).attr('name');
+		$.ajax({
+		  method: "POST",
+		  url: "<?= base_url('index.php/for_ajax/komentar'); ?>/<?= $dt->kelas_id; ?>",
+		  data: { user_id	 : user_id,
+		  		  txt_komen	 : txt_komen,
+		  		  p_id 		 : p_id}
+			}).done(function( msg ) {
+		    // alert( "Data : " + msg );
+		    location.reload();
+		  });	
+	});
+	$(".form-comment").keyup(function(e){
+		if (e.keyCode ==  13) {
+			$(this).trigger("enterKey");
+		}
+	});
 });
 </script>
 

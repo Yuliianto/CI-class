@@ -61,6 +61,9 @@
                   <a class="btn btn-secondary" href="<?= base_url('index.php/web/register');?>" >register</a>
 								</div>
 							</form>
+              <div class="text-center">
+                  <a class="lead" href="<?= base_url('index.php/web/resetpass'); ?>">Lupa password</a>
+              </div>
 						</div>	
 					</div>
 				</div>
@@ -88,7 +91,15 @@
         </li>
       </ul>
     </div>
-
+<style type="text/css">
+  a {
+    color: #fff;
+  }
+  a:hover{
+    text-decoration: none;
+    color: #3D89CD;
+  }
+</style>
 <script src="<?php echo base_url().'asset/js/bootstrap.js' ?>"></script>
 
     <script src="<?php echo base_url();?>asset/vendor/jquery/jquery.min.js"></script>

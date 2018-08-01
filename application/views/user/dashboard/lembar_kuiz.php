@@ -55,7 +55,7 @@
 													foreach ($kuiz_pil->result_array() as $value) { 
 														if ($s['soal_id']==$value['soal_id']) { ?>
 														<div class="radio">
-														  <label><input type="radio"  name="<?= $s['soal_id']; ?>" value="<?= $value['pilih_id']; ?>">&nbsp; <?= $value['pilih']; ?></label>
+														  <label><input type="radio" id="<?= $s['kunci']; ?>" name="<?= $s['soal_id']; ?>" value="<?= $value['pilih_id']; ?>">&nbsp; <?= $value['pilih']; ?></label>
 														</div>	
 
 														<script type="text/javascript">
@@ -77,6 +77,7 @@
 												</div>
 											</p>
 											<?php } } ?>
+											<a href="<?= base_url('index.php/web/timeline/'); ?><?= $dt->kelas_id; ?>" class="btn btn-danger pull-right">Selesai</a>
 										</div>
 									</div>
 								</div>
@@ -96,7 +97,7 @@
 										    	<button class="btn btn-light" name="btn" value="batal">BATAL</button>
 										    	<button class="btn btn-primary" name="btn" value="post">POST</button>
 										    </div> -->
-										    <a href="<?= base_url('index.php/web/timeline/'); ?><?= $dt->kelas_id; ?>" class="btn btn-danger">Selesai</a>
+										    
 										</div>
 									</form>
 								</div>
@@ -122,14 +123,15 @@
 	$("input[type=radio]").click(function(){
 		jawab_id = $(this).val();
 		soal 	 = $(this).attr("name");
-
+		kunci 	 = $(this).attr("id");
 		//input
 		$.ajax({
 		  method: "POST",
 		  url: "<?= base_url('index.php/for_ajax/cek_status'); ?>/<?= $dt->kelas_id; ?>",
 		  data: { soal_id	 : soal,
 		  		  pilih_id	 : jawab_id,
-		  		  anggota_id : anggota}
+		  		  anggota_id : anggota,
+		  		  kunci		 : kunci}
 			}).done(function( msg ) {
 		     	status = msg;
 		     	if (status=="true") {
@@ -139,9 +141,10 @@
 					  url: "<?= base_url('index.php/for_ajax/update'); ?>/<?= $dt->kelas_id; ?>",
 					  data: { soal_id	 : soal,
 					  		  pilih_id	 : jawab_id,
-					  		  anggota_id : anggota}
+					  		  anggota_id : anggota,
+		  		  			  kunci		 : kunci}
 						}).done(function( msg ) {
-					    /*alert( "Data : " + msg );*/
+					    // alert( "Data : " + kunci );
 					  });
 		     	}else{
 		     		//Input

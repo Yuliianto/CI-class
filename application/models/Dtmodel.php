@@ -105,6 +105,11 @@ class Dtmodel extends CI_Model {
 		$insert_id = $this->db->insert_id();
 		return $insert_id;
 	}
+	public function insert_komentar($data){
+		$res= $this->db->insert("komentar",$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
 	public function insert_up($data){
 		$res = $this->db->insert('tugas_upload',$data);
 		$insert_id = $this->db->insert_id();
@@ -263,12 +268,14 @@ class Dtmodel extends CI_Model {
 		return $this->db->get();
 	}
 	public function cek_jwb_kuiz($kuiz_id){
-		$this->db->select('*');
+		$this->db->select("anggota.nim, jawaban.anggota_id, COUNT(jawaban.status) as total_benar");
+		$this->db->group_by("jawaban.anggota_id");
+		// $this->db->select('*');
 		$this->db->from("jawaban");
 		$this->db->join("soal","soal.soal_id = jawaban.soal_id");
-		// $this->db->join("jawaban","soal.soal_id = jawaban.soal_id");
+		$this->db->join("anggota","jawaban.anggota_id = anggota.anggota_id");
 		// $this->db->join("pilihan","jawaban.jawaban = pilihan.pilih");
-		$this->db->where(array("soal.kuiz_id" => $kuiz_id));
+		$this->db->where(array("soal.kuiz_id" => $kuiz_id,"jawaban.status"=>"benar"));
 		return $this->db->get();
 	}
 	public function return_soal($kuiz_id){
@@ -287,5 +294,37 @@ class Dtmodel extends CI_Model {
 		$this->db->where($kondisi);
 		$res = $this->db->update("soal",$data);
 		return $res;
+	}
+	public function show_komentar(){
+		$this->db->select('*');
+		$this->db->from('komentar');
+		$this->db->join('users','komentar.anggota_id=users.id');
+		return $this->db->get();
+	}
+	public function show_user(){
+		$id = $this->session->user_id;
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where(array('id'=>$id));
+		return $this->db->get()->row();
+	}
+	public function jml_soal($kuiz_id){
+		$this->db->select("count(soal_id) as jml_soal");
+		$this->db->from("soal");
+		$this->db->join("kuiz","soal.kuiz_id = kuiz.kuiz_id");
+		$this->db->where(array("soal.kuiz_id"=>$kuiz_id));
+		return $this->db->get()->row();
+	}
+	public function update_profil($id,$data){
+		$this->db->where(array("id"=>$id));
+		$res = $this->db->update("users",$data);
+		return $res;
+	}
+	public function check_email($email)
+	{
+		$this->db->select("*");
+		$this->db->from("users");
+		$this->db->where(array("email"=>$email));
+		return $this->db->get()->row();
 	}
 }

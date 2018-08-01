@@ -69,7 +69,8 @@ class Web extends CI_Controller {
 				if (empty($_SESSION['logged_in'])) {
 					$this->load->view('index');
 				}else{
-					$this->load->view('header');
+					$dt_header = array("dt_user"=>$this->dtmodel->show_user());
+					$this->load->view('header',$dt_header);
 					$this->load->view('user/dashboard/course', $data);
 					$this->load->view('footer');
 				}
@@ -125,7 +126,9 @@ class Web extends CI_Controller {
 		header("location:".base_url('/'));
 	}
 	public function user(){
-		$this->load->view('header');
+
+		$dt_header = $this->dtmodel->show_user();
+		$this->load->view('header',$dt_header);
 		$this->load->view('footer');
 	}
 
@@ -200,7 +203,8 @@ class Web extends CI_Controller {
 						  'kuiz_pil'=>$this->dtmodel->kuiz_pil((string)$nip->nip,$kelas_id),
 						  'anggota'=>$nip,
 						  'data_soal'=>$this->dtmodel->tampil_soal(),
-						  'cek_upload'=>$this->dtmodel->cek_upload());
+						  'cek_upload'=>$this->dtmodel->cek_upload(),
+						  'dt_komentar'=>$this->dtmodel->show_komentar());
 			$this->load->view('user/dashboard/student_nav',$data);
 			$this->load->view('user/dashboard/student_timeline',$data);
 			$this->load->view('footer');
@@ -266,7 +270,8 @@ class Web extends CI_Controller {
 						  'last_row'=>$this->dtmodel->post_last_row($_SESSION['username'],$kelas_id),
 						  'posting_kuiz'=>$this->dtmodel->tampil_kuiz($_SESSION['username'],$kelas_id),
 						  'kuiz_pil'=>$this->dtmodel->kuiz_pil($_SESSION['username'],$kelas_id),
-						  'data_soal'=>$this->dtmodel->tampil_soal());
+						  'data_soal'=>$this->dtmodel->tampil_soal(),
+						  'dt_komentar'=>$this->dtmodel->show_komentar());
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/teacher_timeline',$data);
 			$this->load->view('footer');
@@ -337,7 +342,8 @@ class Web extends CI_Controller {
 
 	public function scoring($kuiz_id,$kelas_id){
 		$data = array('cek_jwb_kuiz' => $this->dtmodel->cek_jwb_kuiz($kuiz_id),
-					  'dt' => $this->dtmodel->kelas_dosen($kelas_id));
+					  'dt' => $this->dtmodel->kelas_dosen($kelas_id),
+					  'jml_soal'=>$this->dtmodel->jml_soal($kuiz_id));
 		$cek= $this->dtmodel->cek_jwb_kuiz($kuiz_id);
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/scoring',$data);
@@ -393,5 +399,27 @@ class Web extends CI_Controller {
 				header("location:".base_url('index.php/web/teachertimeline/'.$kelas_id));
 			}
 	}
+	public function update_profil(){
+		// header("location:".base_url('index.php/web/'));
+		$id = $this->input->post('id');
+		$password = $this->input->post('new-password');
+		$dt_update = array("username" => $this->input->post('username'),
+							"email" 	=> $this->input->post('email'),
+							"first_name"=> $this->input->post('firstname'),
+							"last_name" => $this->input->post('lastname'),
+							"password"  => $this->encryption->encrypt($password));
+		$do_update = $this->dtmodel->update_profil($id,$dt_update);
+		if (! $do_update ){
+			echo "error";
+		}else{
+			header("location:".base_url('index.php/web/'));
+		}
+	}
+	public function resetpass(){
 
+		$data = array('' => '' );
+		// $this->load->view('header');
+		$this->load->view('register/reset_password', $data);
+		$this->load->view('footer');
+	}
 }

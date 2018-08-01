@@ -50,7 +50,7 @@
 				<div class="card rounded-0 border-0">
 					<div class="card-body">
 						<div class="card-title">						
-							<h2>Register account</h2>
+							<span class="h1 text-uppercase">Daftar Account</span>
 							<hr>
 						</div>
 						<div>
@@ -70,26 +70,38 @@
 
 							<div class="form-group row">
 								<label for='username' class="col-sm-4 col-form-label">Username</label>
-								<div class="col-sm-4">
+								<div class="col">
 									<input type="text" name="username" class="form-control" placeholder="Nim / Nip">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for='email' class="col-sm-4 col-form-label">Email</label>
 								<div class="col">
-									<input type="email" name="email" class="form-control" placeholder="Enter email" style="max-width: 420px;">
+									<input type="email" name="email" class="form-control" placeholder="Enter email" >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for='firstname' class="col-sm-4 col-form-label">Nama depan</label>
+								<div class="col">
+									<input type="text" name="firstname" class="form-control" placeholder="Enter nama depan" >
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for='lastname' class="col-sm-4 col-form-label">Nama belakang</label>
+								<div class="col">
+									<input type="text" name="lastname" class="form-control" placeholder="Enter nama belakang" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for='password' class="col-sm-4 col-form-label">Password</label>
-								<div class="col-sm-6">
-									<input type="password" name="password" class="form-control" placeholder="Enter password" style="max-width: 320px;">
+								<div class="col">
+									<input type="password" name="password" class="form-control" placeholder="Enter password" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for='paskonfirm' class="col-sm-4 col-form-label">Konfirm Password</label>
-								<div class="col-sm-6">
-									<input type="password" name="password_confirm" class="form-control" placeholder="Enter Konfirm Password" style="max-width: 320px;">
+								<div class="col">
+									<input type="password" name="password_confirm" class="form-control" placeholder="Enter Konfirm Password">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -101,9 +113,10 @@
 					</div>
 				</div>	
 			</div>
-			<div class="col-md-6 text-center" id="side">
+			<div class="col-md-6 text-center">
 				<br><br><br><br><br><br>
-				<span class="h3">Gabung bersama teman - teman mahasiswa lainnya</span>
+				<span class="display-3 text-muted">E-Learning</span>
+				<p class="">STEBI Al-Muhsin Krapyak Yogyakarta</p>
 			</div>
 	</div>
 </div>
