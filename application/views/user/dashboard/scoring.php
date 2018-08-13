@@ -8,7 +8,10 @@
 			
 				<div class="row">
 					<div class="col">
-						<button>Export</button>
+						<!-- <form method="post" action="<?= base_url('index.php/web/export_to_excel/')?>">
+							<input type="text" name="data_score" value="<?= $kuiz_id; ?>">
+							<input type="submit" name="export" value="export">
+						</form> -->
 						<table class="table">
 							<thead>
 								<tr>
@@ -29,7 +32,7 @@
 									</td>
 									<td><?= $cek['total_benar']; ?></td>
 									<td>
-										<span class=""><?= ($cek['total_benar']/$jml_soal->jml_soal*100); ?></span>
+										<span class="text-success"><?= round($cek['total_benar']/$jml_soal->jml_soal*100,2); ?></span>
 									</td>
 								</tr>
 								<?php } ?>

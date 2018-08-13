@@ -30,8 +30,8 @@
         <li class="navbar-nav nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-plus"></span></a>
           <div class="dropdown-menu dropdown-menu-right rounded-0" >      
-            <a href="#" class="dropdown-item" id="myBtn">Gabung kelas</a>        
-            <a href="#" class="dropdown-item" id="btnCreate">Buat kelas</a>        
+            <a href="#" class="dropdown-item" id="myBtn">ikuti kelas</a>        
+            <a href="#" class="dropdown-item" id="btnCreate">buat kelas</a>        
           </div>
         </li>
         <!-- <li class="navbar-nav nav-item dropdown">

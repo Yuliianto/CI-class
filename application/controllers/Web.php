@@ -140,6 +140,8 @@ class Web extends CI_Controller {
 			// set validation rules
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[users.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules('firstname', 'Firstname', 'trim|required');
+		$this->form_validation->set_rules('lastname', 'Lastname', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 		
@@ -153,14 +155,18 @@ class Web extends CI_Controller {
 			
 			// set variables from the form
 			$username = $this->input->post('username');
+			$firstname = $this->input->post('firstname');
+			$lastname = $this->input->post('lastname');
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
-			
+			$is_dosen = $this->dtmodel->is_dosen($username);
 			$dt  = array('username' => $username,
 						 'email' => $email,
 						 'password' => $this->encryption->encrypt($password),
 						 'created_at'=>date('Y-m-j H:i:s'),
-						 'is_dosen'=>$this->dtmodel->is_dosen($username));
+						 'first_name' => $firstname,
+						 'last_name' => $lastname,
+						 'is_dosen'=> $is_dosen);
 			if ($this->dtmodel->create_user($dt)) {
 				
 				// user creation ok
@@ -311,7 +317,7 @@ class Web extends CI_Controller {
 			$this->db->error();
 		}else{
 			$dt_tugas = array('tugas_id'=>null,
-							 'judul' => $this->input->post('judul'),
+							 'judul' => $this->input->post('judul',true),
 							 'instruksi' => $this->input->post('instruksi'),
 							 'batas_waktu'=>$this->input->post('batas_waktu')." ".date("H:i:s"),
 							 'topik_id'=>null,
@@ -343,7 +349,8 @@ class Web extends CI_Controller {
 	public function scoring($kuiz_id,$kelas_id){
 		$data = array('cek_jwb_kuiz' => $this->dtmodel->cek_jwb_kuiz($kuiz_id),
 					  'dt' => $this->dtmodel->kelas_dosen($kelas_id),
-					  'jml_soal'=>$this->dtmodel->jml_soal($kuiz_id));
+					  'jml_soal'=>$this->dtmodel->jml_soal($kuiz_id),
+					  'kuiz_id' =>$kuiz_id);
 		$cek= $this->dtmodel->cek_jwb_kuiz($kuiz_id);
 			$this->load->view('user/dashboard/teacher_nav',$data);
 			$this->load->view('user/dashboard/scoring',$data);
@@ -403,7 +410,7 @@ class Web extends CI_Controller {
 		// header("location:".base_url('index.php/web/'));
 		$id = $this->input->post('id');
 		$password = $this->input->post('new-password');
-		$dt_update = array("username" => $this->input->post('username'),
+		$dt_update = array("username" => $this->input->post('username',true),
 							"email" 	=> $this->input->post('email'),
 							"first_name"=> $this->input->post('firstname'),
 							"last_name" => $this->input->post('lastname'),
@@ -421,5 +428,14 @@ class Web extends CI_Controller {
 		// $this->load->view('header');
 		$this->load->view('register/reset_password', $data);
 		$this->load->view('footer');
+	}
+	
+	public function export_to_excel(){
+		$kuiz_id = $this->input->post('data_score');
+		//$data = array('cek_jwb_kuiz' => $this->dtmodel->cek_jwb_kuiz($kuiz_id));
+		$dt_kuiz = $this->dtmodel->cek_jwb_kuiz($kuiz_id);
+		foreach ($dt_kuiz->result_array() as $value) {
+			echo $value['nim'];
+		}
 	}
 }

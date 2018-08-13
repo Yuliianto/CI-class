@@ -130,7 +130,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
+													<a onclick="confirm('Pengumuman akan dihapus')" href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>
@@ -194,7 +194,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-													<a href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
+													<a onclick="confirm('tugas akan dihapus')" href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>
@@ -222,7 +222,9 @@
 														<?php 
 															$bhn_path = "./uploads/bahan_tugas/".$dt->enrol."/".$pt['post_id'];
 															$bhn_list = get_filenames($bhn_path);
-															
+															if (! $bhn_list) {
+																echo "tidak ada file";
+															}else{
 															foreach ($bhn_list as $key => $file ) { ?>
 														<div class="media border bg-light">
 															<div class="col d-flex justify-content-start border-muted border bg-light">
@@ -234,7 +236,7 @@
 																</div>
 															</div>
 														</div>
-														<?php	}
+														<?php	} }
 														?>
 													</div>
 												</div>
@@ -290,7 +292,7 @@
 												</div>
 												<div class="ml-auto p-2 align-self-center">
 													<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-													<a onclick="confirm('Kuiz akan dihapus')" href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
+													<a onclick="confirm('Kuis akan dihapus')" href="<?= base_url('index.php/web/hapus_posting/'.$p['post_id'].'/'.$dt->enrol.'/'.$dt->kelas_id); ?>" class="btn btn-danger btn-round btn-lg" data-toggle="tooltip" data-placement="top" title="hapus"><span class="fa fa-trash fa-xs"></span></a>
 												</div>
 											</div>
 										</div>

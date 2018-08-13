@@ -299,6 +299,7 @@ class Dtmodel extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('komentar');
 		$this->db->join('users','komentar.anggota_id=users.id');
+		$this->db->order_by("waktu","ASC");
 		return $this->db->get();
 	}
 	public function show_user(){

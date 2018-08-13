@@ -67,7 +67,9 @@
 
 				$bhn_path = "./uploads/materi/".$dt->enrol;
 				$bhn_list = get_filenames($bhn_path);
-				
+				if (! $bhn_list) {
+					echo "belum ada file";
+				}else{
 				foreach ($bhn_list as $key => $file ) {?>
 				<div class="d-flex justify-content-start border-muted border bg-light">
 					<div class="p-2">
@@ -77,14 +79,14 @@
 						<a href="<?php echo '/CI-class/uploads/'.$dt->enrol.'/'.$file; ?>" download><span><?php echo $file; ?></span></a> 
 					</div>
 				</div>
-			<?php	}
+			<?php	} }
 			?>
 		</div>
 	</div>
 </div>
 				</div>
 				<div class="card-footer" style="background-color: #fff;">
-					<div class="d-flex justify-content-start">
+					<!-- <div class="d-flex justify-content-start">
 						<div class="p-2">
 							<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 						</div>
@@ -101,7 +103,7 @@
 								</div>
 							</form>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
