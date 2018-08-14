@@ -97,7 +97,7 @@
 								<input type="submit" name="submit" value="upload">
 							</div>
 							<div class="dz-message">
-								<h3>Drop files here</h3> or <strong>click</strong> to upload
+								<h3>Drop files here</h3> or <strong>click</strong> to upload<br><label class="">max. 2 MB</label>
 							</div>
 						</form>
 						</div>
@@ -141,6 +141,7 @@
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
 			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+			maxFilesize: 2, // MB
 			addRemoveLinks: true,
 			removedfile: function(file) {
 				var name = file.name;

@@ -332,8 +332,10 @@ class Web extends CI_Controller {
 		}
 	}
 	public function lembar_tugas($post_id,$kelas_id){
+		$dt_batas = $this->dtmodel->batas($post_id);
 		$data = array('dt' => $this->dtmodel->kelas_dosen($kelas_id),
-					  "cek_tugas"=>$this->dtmodel->cek_tugas($post_id));
+					  "cek_tugas"=>$this->dtmodel->cek_tugas($post_id),
+					  "batas"=>(string)$dt_batas->batas_waktu);
 		$cek= $this->dtmodel->cek_tugas($post_id);
 		$this->load->helper("file");
 		/*foreach ($cek->result_array() as $up) {
@@ -365,7 +367,8 @@ class Web extends CI_Controller {
 		$dt_up   = 	 array('upload_id'=>null,
 						   'dir_upload'=>$dir_up.$murid_id,
 						   'murid_id'=>$murid_id,
-						   'post_id'=>$post_id);
+						   'post_id'=>$post_id,
+						   'waktu'=> date('Y-m-d H:i:s'));
 		$do_up  = $this->dtmodel->insert_up($dt_up);
 			$new_dir = $_SERVER['DOCUMENT_ROOT'].'/CI-class/uploads/upload_mhs/'.$enrol."/".$post_id.$murid_id;
 			rename($old_dir, $new_dir);
@@ -437,5 +440,17 @@ class Web extends CI_Controller {
 		foreach ($dt_kuiz->result_array() as $value) {
 			echo $value['nim'];
 		}
+	}
+	public function edit_bahan($postid,$enrol)
+	{
+		$data = array('enrol' => $enrol,
+					  'post_id' => $postid);
+		$this->load->view("user/dashboard/edit_bahan",$data);
+	}
+	public function edit_tugas_upload($postid,$enrol)
+	{
+		$data = array('enrol' => $enrol,
+					  'post_id' => $postid);
+		$this->load->view("user/dashboard/edit_tugas_upload",$data);
 	}
 }

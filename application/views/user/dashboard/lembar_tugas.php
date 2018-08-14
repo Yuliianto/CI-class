@@ -9,9 +9,19 @@
 					<span>Nama Dosen</span>
 				</div>
 			</div> --><br>
+
 			<?php
-			foreach ($cek_tugas->result_array() as $cek) { ?>
-				<div class="d-flex justify-content-start border-muted border bg-light">
+			$bts = new DateTime($batas);
+			foreach ($cek_tugas->result_array() as $cek) { 
+				$wkt = new DateTime($cek['waktu']);
+
+				if($bts <= $wkt){
+					$bg= "bg-danger";
+				}else{
+					$bg= "bg-light";
+				}
+				?>
+				<div class="d-flex justify-content-start border-muted border <?= $bg; ?>">
 					<div class="p-2">
 						<img class="rounded d-inline" src="<?= base_url('asset/images/owner-male.png'); ?>" alt="avatar-dosen" width="40">
 					</div>
@@ -25,6 +35,7 @@
 								$replace = str_replace("/var/www/html", "", realpath($cek['dir_upload']).'/'.$file);
 								?>
 							<a href="<?= $replace; ?>" download><?= $file; ?></a><br>
+							<label class="text-muted"><?= $cek['waktu']; ?></label>
 							<?php } ?>
 					</div>
 				</div>

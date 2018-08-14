@@ -328,4 +328,10 @@ class Dtmodel extends CI_Model {
 		$this->db->where(array("email"=>$email));
 		return $this->db->get()->row();
 	}
+	public function batas($postid){
+		$this->db->select("batas_waktu");
+		$this->db->from("tugas");
+		$this->db->where("post_id",$postid);
+		return $this->db->get()->row();
+	}
 }

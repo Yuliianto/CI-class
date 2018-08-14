@@ -124,7 +124,7 @@
 									</div>
 									<div class="ml-auto p-2 align-self-center text-muted">
 										<!-- <span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>done late</span> -->
-										
+										<?= getTimeInterval($waktu); ?>
 									</div>
 								</div>
 							</div>
@@ -188,6 +188,7 @@
 										foreach ($cek_upload->result_array() as $cekup) {
 											if ($p['post_id']==$cekup['post_id']&&$cekup['murid_id']==$anggota->anggota_id) { ?>
 										<span class="text-uppercase" style="color: #0C9D58;"><i class="fa fa-check-circle fa-lg">&nbsp;</i>Telah dikerjakan</span>
+										<a href="<?= base_url('index.php/web/edit_tugas_upload/'.$p['post_id'].$dt->kelas_id.'/'.$dt->enrol.'/') ?>" class="">Edit</a> 
 										<?php	} else{ ?>
 										<!-- <span class="text-uppercase" style="color: #DC3545;"><i class="fa fa-exclamation fa-lg">&nbsp;</i>Belum dikerjakan</span> -->
 										<?php } }
@@ -449,7 +450,7 @@
 			<input type="submit" name="submit" value="upload">
 		</div>
 		<div class="dz-message">
-			<h3>Drop files here</h3> or <strong>click</strong> to upload
+			<h3>Drop files here</h3> or <strong>click</strong> to upload<br><label class="">max. 2 MB</label>
 		</div>
 	</form>
   </div>
@@ -549,6 +550,7 @@
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
 			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+			maxFilesize: 2, // MB
 			addRemoveLinks: true,
 			removedfile: function(file) {
 				var name = file.name;

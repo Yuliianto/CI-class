@@ -225,6 +225,7 @@
 															if (! $bhn_list) {
 																echo "tidak ada file";
 															}else{
+															?> <a href="<?= base_url('index.php/web/edit_bahan/'.$p['post_id'].'/'.$dt->enrol.'/') ?>" class="">Edit</a> <?php
 															foreach ($bhn_list as $key => $file ) { ?>
 														<div class="media border bg-light">
 															<div class="col d-flex justify-content-start border-muted border bg-light">
@@ -399,7 +400,7 @@
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 50px;
     border: 1px solid #888;
     width: 60%;
 }
@@ -437,7 +438,7 @@
       	<textarea class="form-control textarea-tiny" style="height:120px;" name="pengumuman"></textarea>
       </div>
       <div class="form-group">      
-        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
+        <input type="submit" name="submit" class="btn btn-primary btn-lg pull-right" value="Buat" />  
       </div>
     </form>
   </div>
@@ -448,8 +449,8 @@
   <div class="modal-content">
     <label class="h3">Tugas 
         <span class="close close-create btn btn-light">&times;</span>
+        <hr>
     </label>
-        <br>
         <?= validation_errors(); ?>
     <form action="<?= base_url('index.php/web/post_tugas/'.$dt->kelas_id); ?>" method="post">
       <div class="form-group">
@@ -465,12 +466,15 @@
       	        <input type="date" class="form-control border-top-0 border-left-0 border-right-0 border-primary rounded-0" name="batas_waktu" >
 		</div>
       </div>
+      <div class="form-group row">
+      	<label for="unggah" class="col-sm-4 col-form-label" >file </label>
+      	<label id="btn-upload-file" class="btn btn-info btn-sm">pilih file</label> 
+      </div>
       <div class="form-group">
-      	<textarea class="form-control textarea-tiny" name="instruksi"></textarea>
+      	<textarea class="form-control textarea-tiny" style="height: 240px;" name="instruksi"></textarea>
       </div>
       <div class="form-group">      
-        <input type="submit" name="submit" class="btn btn-primary" value="Buat" />  
-      	<label id="btn-upload-file" class="btn btn-info btn-sm">upload file</label> 
+        <input type="submit" name="submit" class="btn btn-primary btn-lg pull-right" value="Buat" />  
       </div>
     </form>
     
@@ -481,15 +485,15 @@
 			</script>
 			<div class="modal-content">
 		    	<label class="h3">Upload 
-		        	<span class="close-upload btn btn-light">&times;</span>
+		        	<span class="close-upload btn btn-light pull-right">&times;</span>
 		    	</label>
-		    	<form action="<?= base_url("index.php/control_upload/upload_tugas_dosen/") ?><?= $dt->enrol; ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data">
+		    	<form action="<?= base_url("index.php/control_upload/upload_tugas_dosen/") ?><?= $dt->enrol; ?>" id="my-dropzone" method="post" class="dropzone" enctype="multipart/form-data" style="height: 340px;">
 			  		<div class="fallback">
 						<input name="file" type="file"  />
 						<input type="submit" name="submit" value="upload">
 					</div>
 					<div class="dz-message">
-						<h3>Drop files here</h3> or <strong>click</strong> to upload
+						<h3>Drop files here</h3> or <strong>click</strong> to upload<br><label class="">max. 2 MB</label>
 					</div>
 				</form>
 			</div>
@@ -674,6 +678,7 @@ $(document).ready(function(){
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
 			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+			maxFilesize: 2, // MB
 			addRemoveLinks: true,
 			removedfile: function(file) {
 				var name = file.name;
