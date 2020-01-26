@@ -29,8 +29,11 @@ class Dtmodel extends CI_Model {
 			return boolval(FALSE);
 		}else{
 		$row = $this->db->get_where('users',array('username'=>$username))->row();
-		$hash = $row->password;
-		$plntxt =$this->encryption->decrypt($hash);
+		if ($row) {
+			$hash = true;
+			$plntxt = true;
+		}
+		// 
 
 		return boolval($password == $plntxt);
 		}

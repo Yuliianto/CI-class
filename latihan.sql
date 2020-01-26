@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Aug 08, 2018 at 12:28 PM
--- Server version: 5.6.30-1
--- PHP Version: 5.6.26-1
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 26 Jan 2020 pada 15.39
+-- Versi server: 10.1.34-MariaDB
+-- Versi PHP: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `anggota`
+-- Struktur dari tabel `anggota`
 --
 
 CREATE TABLE `anggota` (
@@ -33,7 +35,7 @@ CREATE TABLE `anggota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `anggota`
+-- Dumping data untuk tabel `anggota`
 --
 
 INSERT INTO `anggota` (`anggota_id`, `nim`, `kelas_id`) VALUES
@@ -44,12 +46,13 @@ INSERT INTO `anggota` (`anggota_id`, `nim`, `kelas_id`) VALUES
 (21, '5150411259', 21),
 (22, '5150411222', 21),
 (23, '5150411260', 21),
-(24, '5150411260', 24);
+(24, '5150411260', 24),
+(25, '5150411259', 24);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ci_sessions`
+-- Struktur dari tabel `ci_sessions`
 --
 
 CREATE TABLE `ci_sessions` (
@@ -60,7 +63,7 @@ CREATE TABLE `ci_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ci_sessions`
+-- Dumping data untuk tabel `ci_sessions`
 --
 
 INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
@@ -69,30 +72,33 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dosen`
+-- Struktur dari tabel `dosen`
 --
 
 CREATE TABLE `dosen` (
-  `nik` varchar(14) NOT NULL,
-  `nama` text NOT NULL,
-  `ttl` date NOT NULL,
-  `gender` varchar(12) NOT NULL,
-  `agama` varchar(25) NOT NULL
+  `nik` varchar(200) NOT NULL,
+  `nama` text,
+  `ttl` date DEFAULT NULL,
+  `gender` varchar(12) DEFAULT NULL,
+  `agama` varchar(25) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `dosen`
+-- Dumping data untuk tabel `dosen`
 --
 
-INSERT INTO `dosen` (`nik`, `nama`, `ttl`, `gender`, `agama`) VALUES
-('1121103', 'joko', '1996-07-15', 'laki-laki', 'islam'),
-('1121104', 'budi', '1996-07-15', 'laki-laki', 'islam'),
-('1121109', 'jihan', '2018-07-18', 'laki-laki', 'islam');
+INSERT INTO `dosen` (`nik`, `nama`, `ttl`, `gender`, `agama`, `updated_at`, `created_at`) VALUES
+('1121103', 'joko', '1996-07-15', 'laki-laki', 'islam', NULL, NULL),
+('1121104', 'budi', '1996-07-15', 'laki-laki', 'islam', NULL, NULL),
+('1121109', 'jihan', '2018-07-18', 'laki-laki', 'islam', NULL, NULL),
+('ulfajuni3@gmail.com', 'ulfa nikmatul', '2020-01-26', 'laki - laki', 'islam', '2020-01-26 06:20:20', '2020-01-26 06:20:20');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jawaban`
+-- Struktur dari tabel `jawaban`
 --
 
 CREATE TABLE `jawaban` (
@@ -104,7 +110,7 @@ CREATE TABLE `jawaban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jawaban`
+-- Dumping data untuk tabel `jawaban`
 --
 
 INSERT INTO `jawaban` (`jawab_id`, `soal_id`, `jawaban`, `anggota_id`, `status`) VALUES
@@ -121,12 +127,13 @@ INSERT INTO `jawaban` (`jawab_id`, `soal_id`, `jawaban`, `anggota_id`, `status`)
 (20, 42, 82, 23, 'benar'),
 (21, 43, 85, 23, 'salah'),
 (22, 44, 88, 21, 'salah'),
-(23, 45, 90, 21, 'benar');
+(23, 45, 90, 21, 'benar'),
+(24, 46, 92, 25, 'benar');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -139,7 +146,7 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kelas`
+-- Dumping data untuk tabel `kelas`
 --
 
 INSERT INTO `kelas` (`kelas_id`, `kelas`, `section`, `deskripsi`, `enrol`, `nip`) VALUES
@@ -151,7 +158,7 @@ INSERT INTO `kelas` (`kelas_id`, `kelas`, `section`, `deskripsi`, `enrol`, `nip`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `komentar`
+-- Struktur dari tabel `komentar`
 --
 
 CREATE TABLE `komentar` (
@@ -163,7 +170,7 @@ CREATE TABLE `komentar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `komentar`
+-- Dumping data untuk tabel `komentar`
 --
 
 INSERT INTO `komentar` (`komentar_id`, `komentar`, `waktu`, `anggota_id`, `post_id`) VALUES
@@ -180,7 +187,7 @@ INSERT INTO `komentar` (`komentar_id`, `komentar`, `waktu`, `anggota_id`, `post_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kuiz`
+-- Struktur dari tabel `kuiz`
 --
 
 CREATE TABLE `kuiz` (
@@ -190,41 +197,45 @@ CREATE TABLE `kuiz` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kuiz`
+-- Dumping data untuk tabel `kuiz`
 --
 
 INSERT INTO `kuiz` (`kuiz_id`, `post_id`, `deskrip`) VALUES
 (74, 100, 'kuiz lagi '),
-(76, 104, 'deskripsi kuis');
+(76, 104, 'deskripsi kuis'),
+(77, 105, 'Tes Masuk Perguruan Tinggi');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mahasiswa`
+-- Struktur dari tabel `mahasiswa`
 --
 
 CREATE TABLE `mahasiswa` (
-  `nim` varchar(14) NOT NULL,
+  `nim` varchar(20) NOT NULL,
   `nama` text NOT NULL,
   `ttl` date NOT NULL,
   `gender` varchar(12) NOT NULL,
-  `agama` varchar(25) NOT NULL
+  `agama` varchar(25) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mahasiswa`
+-- Dumping data untuk tabel `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `ttl`, `gender`, `agama`) VALUES
-('5150411210', 'MUHAMMAD IMAWAN', '1996-07-15', 'laki-laki', 'islam'),
-('5150411222', 'Andika', '1992-07-10', 'laki - laki', 'islam'),
-('5150411259', 'YULIANTO', '1996-07-15', 'laki-laki', 'islam'),
-('5150411260', 'eko', '1992-07-28', 'laki-laki', 'islam');
+INSERT INTO `mahasiswa` (`nim`, `nama`, `ttl`, `gender`, `agama`, `updated_at`, `created_at`) VALUES
+('5150411210', 'MUHAMMAD IMAWAN', '1996-07-15', 'laki-laki', 'islam', NULL, NULL),
+('5150411222', 'Andika', '1992-07-10', 'laki - laki', 'islam', NULL, NULL),
+('5150411259', 'YULIANTO', '1996-07-15', 'laki-laki', 'islam', NULL, NULL),
+('5150411260', 'eko', '1992-07-28', 'laki-laki', 'islam', NULL, NULL),
+('5566778899110022', 'Lili lestari', '2020-01-26', 'laki - laki', 'islam', '2020-01-26 09:11:28', '2020-01-26 09:11:28');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengumuman`
+-- Struktur dari tabel `pengumuman`
 --
 
 CREATE TABLE `pengumuman` (
@@ -235,7 +246,7 @@ CREATE TABLE `pengumuman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pengumuman`
+-- Dumping data untuk tabel `pengumuman`
 --
 
 INSERT INTO `pengumuman` (`pengumuman_id`, `pengumuman`, `topik_id`, `post_id`) VALUES
@@ -245,7 +256,7 @@ INSERT INTO `pengumuman` (`pengumuman_id`, `pengumuman`, `topik_id`, `post_id`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pilihan`
+-- Struktur dari tabel `pilihan`
 --
 
 CREATE TABLE `pilihan` (
@@ -255,7 +266,7 @@ CREATE TABLE `pilihan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pilihan`
+-- Dumping data untuk tabel `pilihan`
 --
 
 INSERT INTO `pilihan` (`pilih_id`, `pilih`, `soal_id`) VALUES
@@ -269,12 +280,14 @@ INSERT INTO `pilihan` (`pilih_id`, `pilih`, `soal_id`) VALUES
 (87, 'jawab', 44),
 (88, 'bukan', 44),
 (89, 'bukan', 45),
-(90, 'jawab', 45);
+(90, 'jawab', 45),
+(91, 'Iya ', 46),
+(92, 'Bukan', 46);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posting`
+-- Struktur dari tabel `posting`
 --
 
 CREATE TABLE `posting` (
@@ -286,7 +299,7 @@ CREATE TABLE `posting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `posting`
+-- Dumping data untuk tabel `posting`
 --
 
 INSERT INTO `posting` (`post_id`, `waktu`, `nip`, `kelas_id`, `jenis`) VALUES
@@ -297,12 +310,13 @@ INSERT INTO `posting` (`post_id`, `waktu`, `nip`, `kelas_id`, `jenis`) VALUES
 (100, '2018-07-28 16:07:31', '1121104', 21, 'kuiz'),
 (101, '2018-08-02 20:08:47', '1121103', 24, 'pengumuman'),
 (102, '2018-08-02 20:30:55', '1121103', 24, 'tugas'),
-(104, '2018-08-06 11:08:46', '1121104', 21, 'kuiz');
+(104, '2018-08-06 11:08:46', '1121104', 21, 'kuiz'),
+(105, '2020-01-26 04:01:02', '1121103', 24, 'kuiz');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `soal`
+-- Struktur dari tabel `soal`
 --
 
 CREATE TABLE `soal` (
@@ -313,7 +327,7 @@ CREATE TABLE `soal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `soal`
+-- Dumping data untuk tabel `soal`
 --
 
 INSERT INTO `soal` (`soal_id`, `soal`, `kunci`, `kuiz_id`) VALUES
@@ -321,12 +335,13 @@ INSERT INTO `soal` (`soal_id`, `soal`, `kunci`, `kuiz_id`) VALUES
 (42, 'soal dua adalah ?', 82, 74),
 (43, 'soal ketiga ?', 86, 74),
 (44, 'soal pertama ', 87, 76),
-(45, 'soal kedua ?', 90, 76);
+(45, 'soal kedua ?', 90, 76),
+(46, 'MD5 Encryption apa bukan ?', 92, 77);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tugas`
+-- Struktur dari tabel `tugas`
 --
 
 CREATE TABLE `tugas` (
@@ -340,7 +355,7 @@ CREATE TABLE `tugas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tugas`
+-- Dumping data untuk tabel `tugas`
 --
 
 INSERT INTO `tugas` (`tugas_id`, `judul`, `instruksi`, `batas_waktu`, `topik_id`, `materi`, `post_id`) VALUES
@@ -351,7 +366,7 @@ INSERT INTO `tugas` (`tugas_id`, `judul`, `instruksi`, `batas_waktu`, `topik_id`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tugas_upload`
+-- Struktur dari tabel `tugas_upload`
 --
 
 CREATE TABLE `tugas_upload` (
@@ -362,7 +377,7 @@ CREATE TABLE `tugas_upload` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tugas_upload`
+-- Dumping data untuk tabel `tugas_upload`
 --
 
 INSERT INTO `tugas_upload` (`upload_id`, `dir_upload`, `murid_id`, `post_id`) VALUES
@@ -375,26 +390,26 @@ INSERT INTO `tugas_upload` (`upload_id`, `dir_upload`, `murid_id`, `post_id`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
   `id` int(4) UNSIGNED NOT NULL,
-  `username` varchar(255) NOT NULL DEFAULT '',
-  `email` varchar(255) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '',
+  `username` varchar(255) DEFAULT '',
+  `email` varchar(255) DEFAULT '',
+  `password` varchar(255) DEFAULT '',
   `avatar` varchar(255) DEFAULT 'default.jpg',
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `is_dosen` varchar(15) NOT NULL,
-  `is_confirmed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `first_name` varchar(50) NOT NULL,
+  `is_dosen` varchar(15) DEFAULT NULL,
+  `is_confirmed` tinyint(1) UNSIGNED DEFAULT '0',
+  `is_deleted` tinyint(1) UNSIGNED DEFAULT '0',
+  `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `avatar`, `created_at`, `updated_at`, `is_dosen`, `is_confirmed`, `is_deleted`, `first_name`, `last_name`) VALUES
@@ -404,14 +419,16 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `avatar`, `created_a
 (20, '1121109', 'jihan@gmail.com', 'a0553b3a8685852246dc758103edd7c29ed0c017226ff32c840dae84ed4de1660eebc4e4fe69adbcb76cb96680bbe1c67130e4a0bb905eaa16af0a5877740df1s2ULVB3/WVybiNpHY30SEDXMhAmGaq/CA8EeoHozv64=', 'default.jpg', '2018-07-07 18:53:06', NULL, '1', 0, 0, '', NULL),
 (21, '5150411210', 'junivindo@gmail.com', '48fa1b66f091abdfdc1ad0d2ad3c71e5d6bdb0fb39c6a0dadadca98bf26593878a2ec72d1b7c6eb2451fd45ddd84f703f75c1ceead479f9401f920c7473b6ef6/8JMd5uB0ATjqV8jSLDWsymuQtwwEINhaCYk1GnLdsI=', 'default.jpg', '2018-07-07 18:53:46', NULL, '0', 0, 0, 'Muhammad Imawan ', 'madjid'),
 (22, '5150411222', 'andika@gmail.com', '778c61c052e8bb212eb3639a5e602650b2d0e25d8730b000e0b098ed6b19f7607c73049c767862fbffbcc02f2dbc864d79415b908bccef017ee615111a3393eaaUt4CtCfndK6z8kpeUttZV8EiLHmwDNQOiKPepUJOa8=', 'default.jpg', '2018-07-21 17:07:17', NULL, '0', 0, 0, '', NULL),
-(23, '5150411260', 'ekoardiansyah@gmail.com', '351d8f8f25e777e954b3668bdea19a6fe30fd0ef9bb0d8c0e1d611df0d310046a2b968fd275e33a6835e96fa0d3e50b3db30209530131d875bb3b0635794460fRCC0pBZyf93ZGbmMGvQrzhz6c94uxfJBeu3GOsuU5Wo=', 'default.jpg', '2018-07-21 17:07:38', NULL, '0', 0, 0, 'Eko', 'Ardiansyah');
+(23, '5150411260', 'ekoardiansyah@gmail.com', '351d8f8f25e777e954b3668bdea19a6fe30fd0ef9bb0d8c0e1d611df0d310046a2b968fd275e33a6835e96fa0d3e50b3db30209530131d875bb3b0635794460fRCC0pBZyf93ZGbmMGvQrzhz6c94uxfJBeu3GOsuU5Wo=', 'default.jpg', '2018-07-21 17:07:38', NULL, '0', 0, 0, 'Eko', 'Ardiansyah'),
+(28, 'ulfajuni3@gmail.com', 'ulfajuni3@gmail.com', '$2y$10$4cEq5DFAHTLuVQqdleN6ae4Rf.1LddjyP5njZIDCdVdb0I.m9DGgy', 'default.jpg', '2020-01-26 06:20:20', '2020-01-26 06:20:20', '1', 0, 0, NULL, NULL),
+(29, 'julianto_rpl24@hotmail.com', 'julianto_rpl24@hotmail.com', '19fa59d0cc96438a4a63f154bbe3390a553116a585de72f57b9570f527a348f0cac2054510bfc85037c13eb131f467dfd96f52080de3ca156efb1281969a8ab27fJuXnTgPTfnuR9ZjDio3XKH3kQLWdALcLOOeo6MIIA=', 'default.jpg', '2020-01-26 09:11:28', '2020-01-26 09:11:28', '0', 0, 0, 'yulianto', 'yulianto');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `anggota`
+-- Indeks untuk tabel `anggota`
 --
 ALTER TABLE `anggota`
   ADD PRIMARY KEY (`anggota_id`),
@@ -419,20 +436,20 @@ ALTER TABLE `anggota`
   ADD KEY `kelas_id` (`kelas_id`);
 
 --
--- Indexes for table `ci_sessions`
+-- Indeks untuk tabel `ci_sessions`
 --
 ALTER TABLE `ci_sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
--- Indexes for table `dosen`
+-- Indeks untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
   ADD PRIMARY KEY (`nik`);
 
 --
--- Indexes for table `jawaban`
+-- Indeks untuk tabel `jawaban`
 --
 ALTER TABLE `jawaban`
   ADD PRIMARY KEY (`jawab_id`),
@@ -441,14 +458,14 @@ ALTER TABLE `jawaban`
   ADD KEY `jawaban` (`jawaban`);
 
 --
--- Indexes for table `kelas`
+-- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`kelas_id`),
   ADD KEY `user_id` (`nip`);
 
 --
--- Indexes for table `komentar`
+-- Indeks untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
   ADD PRIMARY KEY (`komentar_id`),
@@ -456,20 +473,20 @@ ALTER TABLE `komentar`
   ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `kuiz`
+-- Indeks untuk tabel `kuiz`
 --
 ALTER TABLE `kuiz`
   ADD PRIMARY KEY (`kuiz_id`),
   ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `mahasiswa`
+-- Indeks untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`nim`);
 
 --
--- Indexes for table `pengumuman`
+-- Indeks untuk tabel `pengumuman`
 --
 ALTER TABLE `pengumuman`
   ADD PRIMARY KEY (`pengumuman_id`),
@@ -477,14 +494,14 @@ ALTER TABLE `pengumuman`
   ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `pilihan`
+-- Indeks untuk tabel `pilihan`
 --
 ALTER TABLE `pilihan`
   ADD PRIMARY KEY (`pilih_id`),
   ADD KEY `soal_id` (`soal_id`);
 
 --
--- Indexes for table `posting`
+-- Indeks untuk tabel `posting`
 --
 ALTER TABLE `posting`
   ADD PRIMARY KEY (`post_id`),
@@ -494,7 +511,7 @@ ALTER TABLE `posting`
   ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `soal`
+-- Indeks untuk tabel `soal`
 --
 ALTER TABLE `soal`
   ADD PRIMARY KEY (`soal_id`),
@@ -502,7 +519,7 @@ ALTER TABLE `soal`
   ADD KEY `kuiz_id` (`kuiz_id`);
 
 --
--- Indexes for table `tugas`
+-- Indeks untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   ADD PRIMARY KEY (`tugas_id`),
@@ -510,7 +527,7 @@ ALTER TABLE `tugas`
   ADD KEY `topik_id` (`topik_id`);
 
 --
--- Indexes for table `tugas_upload`
+-- Indeks untuk tabel `tugas_upload`
 --
 ALTER TABLE `tugas_upload`
   ADD PRIMARY KEY (`upload_id`),
@@ -518,88 +535,100 @@ ALTER TABLE `tugas_upload`
   ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `anggota`
+-- AUTO_INCREMENT untuk tabel `anggota`
 --
 ALTER TABLE `anggota`
-  MODIFY `anggota_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `anggota_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
--- AUTO_INCREMENT for table `jawaban`
+-- AUTO_INCREMENT untuk tabel `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `jawab_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `jawab_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
--- AUTO_INCREMENT for table `kelas`
+-- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `kelas_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
--- AUTO_INCREMENT for table `komentar`
+-- AUTO_INCREMENT untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
   MODIFY `komentar_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
--- AUTO_INCREMENT for table `kuiz`
+-- AUTO_INCREMENT untuk tabel `kuiz`
 --
 ALTER TABLE `kuiz`
-  MODIFY `kuiz_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `kuiz_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
 --
--- AUTO_INCREMENT for table `pengumuman`
+-- AUTO_INCREMENT untuk tabel `pengumuman`
 --
 ALTER TABLE `pengumuman`
   MODIFY `pengumuman_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
--- AUTO_INCREMENT for table `pilihan`
+-- AUTO_INCREMENT untuk tabel `pilihan`
 --
 ALTER TABLE `pilihan`
-  MODIFY `pilih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `pilih_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+
 --
--- AUTO_INCREMENT for table `posting`
+-- AUTO_INCREMENT untuk tabel `posting`
 --
 ALTER TABLE `posting`
-  MODIFY `post_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `post_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
 --
--- AUTO_INCREMENT for table `soal`
+-- AUTO_INCREMENT untuk tabel `soal`
 --
 ALTER TABLE `soal`
-  MODIFY `soal_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `soal_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
--- AUTO_INCREMENT for table `tugas`
+-- AUTO_INCREMENT untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   MODIFY `tugas_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
--- AUTO_INCREMENT for table `tugas_upload`
+-- AUTO_INCREMENT untuk tabel `tugas_upload`
 --
 ALTER TABLE `tugas_upload`
   MODIFY `upload_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `anggota`
+-- Ketidakleluasaan untuk tabel `anggota`
 --
 ALTER TABLE `anggota`
   ADD CONSTRAINT `anggota_ibfk_1` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`kelas_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `anggota_ibfk_2` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `jawaban`
+-- Ketidakleluasaan untuk tabel `jawaban`
 --
 ALTER TABLE `jawaban`
   ADD CONSTRAINT `jawaban_ibfk_1` FOREIGN KEY (`anggota_id`) REFERENCES `anggota` (`anggota_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -607,60 +636,61 @@ ALTER TABLE `jawaban`
   ADD CONSTRAINT `jawaban_ibfk_3` FOREIGN KEY (`jawaban`) REFERENCES `pilihan` (`pilih_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `kelas`
+-- Ketidakleluasaan untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `dosen` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `komentar`
+-- Ketidakleluasaan untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
   ADD CONSTRAINT `komentar_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posting` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `komentar_ibfk_3` FOREIGN KEY (`anggota_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `kuiz`
+-- Ketidakleluasaan untuk tabel `kuiz`
 --
 ALTER TABLE `kuiz`
   ADD CONSTRAINT `kuiz_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posting` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pengumuman`
+-- Ketidakleluasaan untuk tabel `pengumuman`
 --
 ALTER TABLE `pengumuman`
   ADD CONSTRAINT `pengumuman_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posting` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pilihan`
+-- Ketidakleluasaan untuk tabel `pilihan`
 --
 ALTER TABLE `pilihan`
   ADD CONSTRAINT `pilihan_ibfk_1` FOREIGN KEY (`soal_id`) REFERENCES `soal` (`soal_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `posting`
+-- Ketidakleluasaan untuk tabel `posting`
 --
 ALTER TABLE `posting`
   ADD CONSTRAINT `posting_ibfk_1` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`kelas_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `soal`
+-- Ketidakleluasaan untuk tabel `soal`
 --
 ALTER TABLE `soal`
   ADD CONSTRAINT `soal_ibfk_1` FOREIGN KEY (`kuiz_id`) REFERENCES `kuiz` (`kuiz_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tugas`
+-- Ketidakleluasaan untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   ADD CONSTRAINT `tugas_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posting` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tugas_upload`
+-- Ketidakleluasaan untuk tabel `tugas_upload`
 --
 ALTER TABLE `tugas_upload`
   ADD CONSTRAINT `tugas_upload_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `posting` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tugas_upload_ibfk_3` FOREIGN KEY (`murid_id`) REFERENCES `anggota` (`anggota_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

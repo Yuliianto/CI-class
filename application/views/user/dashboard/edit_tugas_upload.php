@@ -52,7 +52,7 @@
 		Dropzone.autoDiscover = false;
 		var myDropzone = new Dropzone("#my-dropzone", {
 			acceptedFiles: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
-			maxFilesize: 2, // MB
+			// maxFilesize: 2, // MB
 			addRemoveLinks: true,
 			
 			removedfile: function(file) {

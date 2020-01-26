@@ -8,8 +8,8 @@ class Web extends CI_Controller {
 		$data = new stdClass();
 
 		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		// $this->form_validation->set_rules('password', 'Password', 'required');
 		
 		if ($this->form_validation->run() == false ) {
 			
@@ -24,7 +24,7 @@ class Web extends CI_Controller {
 			
 			// set variables from the form
 			$username = $this->input->post('username');
-			$password = $this->input->post('password');
+			$password = "Default:p";
 			
 			if ($this->dtmodel->cek_user($username, $password)) {
 				

@@ -52,17 +52,17 @@
 									<label for="username">Username</label>
 									<input type="text" class="form-control" id="username" name="username" placeholder="Your username">
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" placeholder="Your password">
-								</div>
+								</div> -->
 								<div class="form-group" style="text-align: center;">
 									<input type="submit" class="btn btn-danger" value="Login">
-                  <a class="btn btn-secondary" href="<?= base_url('index.php/web/register');?>" >register</a>
+                  
 								</div>
 							</form>
               <div class="text-center">
-                  <a class="lead" href="<?= base_url('index.php/web/resetpass'); ?>">Lupa password</a>
+                  
               </div>
 						</div>	
 					</div>

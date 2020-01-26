@@ -50,7 +50,7 @@ class Control_upload extends CI_Controller {
 
 		header("Content-type: text/json");
 		header("Content-type: application/json");
-		echo json_encode($files);
+		echo ($files);
 	}
 
 
