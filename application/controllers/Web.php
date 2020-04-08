@@ -453,4 +453,19 @@ class Web extends CI_Controller {
 					  'post_id' => $postid);
 		$this->load->view("user/dashboard/edit_tugas_upload",$data);
 	}
+	public function daftar_kelas(){
+		$kelas = $this->db->get('kuiz');
+		return $this->output->set_content_type('application/json')
+					->set_output(json_encode($kelas->result_array()));
+		
+	}
+	public function getJawaban($kuiz_id){
+		$res = array('guid'=> 0,
+					 'code'=> 0,
+					 'jml_soal'=>$this->dtmodel->jml_soal($kuiz_id)->jml_soal,
+					 'hasil' => $this->dtmodel->cek_jwb_kuiz($kuiz_id)->result_array()
+					  );
+		return $this->output->set_content_type('application/json')
+					->set_output(json_encode($res));
+	}
 }
