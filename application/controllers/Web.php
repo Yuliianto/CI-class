@@ -459,6 +459,13 @@ class Web extends CI_Controller {
 					->set_output(json_encode($kelas->result_array()));
 		
 	}
+
+	public function enrol_list_from_kelas(){
+		$kelas = $this->db->get('kelas');
+		return $this->output->set_content_type('application/json')
+					->set_output(json_encode($kelas->result_array()));
+		
+	}
 	public function getJawaban($kuiz_id){
 		$res = array('guid'=> 0,
 					 'code'=> 0,
