@@ -3,22 +3,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Web extends CI_Controller {
 
-	public function index()
+	public function index($email = null)
 	{
 		$data = new stdClass();
+
+		// autologin
+		$action = $this->input->post('action');
+		
 
 		// set validation rules
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		// $this->form_validation->set_rules('password', 'Password', 'required');
 		
-		if ($this->form_validation->run() == false ) {
+		if ($this->form_validation->run() == false || $email != null ) {
 			
-			// validation not ok, send validation errors to the view
-			if (empty($_SESSION['logged_in'])) {
-				$this->load->view('index');
+
+			if ($email != null) {
+				$username = base64_decode($email);
+				$password = "Default:p";
+				
+				if ($this->dtmodel->cek_user($username, $password)) {
+					
+					$user_id = $this->dtmodel->get_user_id_from_username($username);
+					$user    = $this->dtmodel->get_user($user_id);
+					
+					// set session user datas
+					$_SESSION['user_id']      = (int)$user->id;
+					$_SESSION['username']     = (string)$user->username;
+					$_SESSION['logged_in']    = (bool)true;
+					$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
+					$_SESSION['is_dosen']     = (bool)$user->is_dosen;
+					$_SESSION['email']		  = (string)$user->email;
+					// user login ok
+					$data->error='';
+					header("location:".base_url('index.php/web/dashboard'));
+					
+				} else {
+					
+					// login failed
+					$data->error = 'Wrong username or password.';
+					
+					// send error to the view
+					$this->load->view('index', $data);
+					
+				}
 			}else{
-				header("location:".base_url('index.php/web/dashboard'));
+				// validation not ok, send validation errors to the view
+				if (empty($_SESSION['logged_in'])) {
+					$this->load->view('index');
+				}else{
+					header("location:".base_url('index.php/web/dashboard'));
+				}
 			}
+			
 			
 		} else {
 			
