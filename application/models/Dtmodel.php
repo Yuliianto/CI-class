@@ -337,4 +337,14 @@ class Dtmodel extends CI_Model {
 		$this->db->where("post_id",$postid);
 		return $this->db->get()->row();
 	}
+
+	public function enrol_list_from_kelas($kelas_id=NULL)
+	{
+		$this->db->select("*");
+		$this->db->from("kuiz");
+		$this->db->join("posting","kuiz.post_id = posting.post_id");
+		$this->db->join("kelas","posting.kelas_id = kelas.kelas_id");
+		$this->db->where(['kelas.kelas_id'=>$kelas_id]);
+		return $this->db->get();
+	}
 }

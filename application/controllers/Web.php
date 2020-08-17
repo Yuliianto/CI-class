@@ -497,10 +497,10 @@ class Web extends CI_Controller {
 		
 	}
 
-	public function enrol_list_from_kelas(){
-		$kelas = $this->db->get('kelas');
+	public function enrol_list_from_kelas($kelas_id=null){
+		$enrol = $this->dtmodel->enrol_list_from_kelas($kelas_id);
 		return $this->output->set_content_type('application/json')
-					->set_output(json_encode($kelas->result_array()));
+					->set_output(json_encode($enrol->result_array()));
 		
 	}
 	public function getJawaban($kuiz_id){
